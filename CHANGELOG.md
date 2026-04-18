@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.2.0](https://github.com/WindSekirun/voisona-talk-api/compare/v1.1.3...v1.2.0) (2026-04-18)
+
+### 🚀 Features
+
+* add client-side validation for synthesis and analysis requests ([0c06aa4](https://github.com/WindSekirun/voisona-talk-api/commit/0c06aa4ac81517c11a77bd5cd372ab3f0e5abbbd))
+* add VoiSona service reachability check and improved error messages ([c0c8b8d](https://github.com/WindSekirun/voisona-talk-api/commit/c0c8b8d885ed63b8ee4815f4d0e7f7e2f5b5a066))
+
+### 🧰 Maintenance
+
+* automate release notes extraction in GitHub Actions ([3416e45](https://github.com/WindSekirun/voisona-talk-api/commit/3416e45f2803452cd501bda9b64c647be62fb5a1))
+
+### 📝 Documentation
+
+* add description of VoiSona Talk to README ([f9c9c2d](https://github.com/WindSekirun/voisona-talk-api/commit/f9c9c2d756b1b41f732b1c6349b7854052c2ddf5))
+* add license and character guideline notice to README ([7a26e00](https://github.com/WindSekirun/voisona-talk-api/commit/7a26e000d60b2b170bf1050b6c349bb3ee20f9f5))
+* add README_jp.md and language selection links ([11257c8](https://github.com/WindSekirun/voisona-talk-api/commit/11257c8749defbeb93f27bbfae5260cb505d2ee6))
+
 ## [1.1.3](https://github.com/WindSekirun/voisona-talk-api/compare/v1.1.1...v1.1.3) (2026-04-18)
 
 ### 🧰 Maintenance
