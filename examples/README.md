@@ -31,15 +31,20 @@ pnpm tsx examples/simple-synthesis.ts
 ```
 
 ### Advanced Options
-
 This example demonstrates:
-
 - **Emotion Control**: Using `getStyleWeights` to adjust voice styles by name.
 - **Global Parameters**: Adjusting `pitch`, `speed`, `intonation`, and `volume`.
 - **Bulk Synthesis**: Processing multiple messages concurrently.
 
 ```bash
 pnpm tsx examples/advanced-options.ts
+```
+
+### Custom Pronunciation
+This example demonstrates how to fix misread words (like kanji with multiple readings) using the `synthesizeWithPronunciation` helper.
+
+```bash
+pnpm tsx examples/custom-pronunciation.ts
 ```
 
 ### Queue Management
