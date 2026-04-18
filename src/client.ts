@@ -156,6 +156,28 @@ export class VoisonaClient {
       );
     }
 
+    if (params.global_parameters) {
+      const gp = params.global_parameters;
+      const validate = (
+        name: string,
+        val: number | undefined,
+        range: { MIN: number; MAX: number },
+      ) => {
+        if (val !== undefined && (val < range.MIN || val > range.MAX)) {
+          throw new Error(
+            `Global parameter "${name}" must be between ${range.MIN} and ${range.MAX}.`,
+          );
+        }
+      };
+
+      validate('alp', gp.alp, API_CONSTRAINTS.ALP);
+      validate('huskiness', gp.huskiness, API_CONSTRAINTS.HUSKINESS);
+      validate('intonation', gp.intonation, API_CONSTRAINTS.INTONATION);
+      validate('pitch', gp.pitch, API_CONSTRAINTS.PITCH);
+      validate('speed', gp.speed, API_CONSTRAINTS.SPEED);
+      validate('volume', gp.volume, API_CONSTRAINTS.VOLUME);
+    }
+
     return this.request<ContentCreated>('/speech-syntheses', {
       method: 'POST',
       body: JSON.stringify(params),

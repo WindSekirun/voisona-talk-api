@@ -120,6 +120,25 @@ describe('VoisonaClient Core API', () => {
     ).rejects.toThrow('exceeds maximum length');
   });
 
+  it('should validate range of global parameters', async () => {
+    const client = new VoisonaClient(config);
+    await expect(
+      client.requestSpeechSynthesis({
+        language: 'ja_JP',
+        text: 'test',
+        global_parameters: { speed: 10 },
+      }),
+    ).rejects.toThrow('Global parameter "speed" must be between 0.2 and 5');
+
+    await expect(
+      client.requestSpeechSynthesis({
+        language: 'ja_JP',
+        text: 'test',
+        global_parameters: { pitch: -1000 },
+      }),
+    ).rejects.toThrow('Global parameter "pitch" must be between -600 and 600');
+  });
+
   it('should getTextAnalysisRequest', async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
