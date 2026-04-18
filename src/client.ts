@@ -1,5 +1,6 @@
 import { join } from 'node:path';
 import { mkdirSync } from 'node:fs';
+import { replacePronunciation } from './utils';
 import {
   ApiResponse,
   ContentCreated,
@@ -330,6 +331,47 @@ export class VoisonaClient {
     }
 
     return results;
+  }
+
+  /**
+   * Convenience method to request speech synthesis with custom pronunciations for specific words.
+   *
+   * @param params Parameters for the synthesis request (text is required).
+   * @param pronunciationMap A record where keys are words and values are their desired Katakana pronunciations.
+   * @param options Polling options.
+   * @returns The final successful speech synthesis request result.
+   */
+  async synthesizeWithPronunciation(
+    params: RequestSpeechSynthesisParams & { text: string },
+    pronunciationMap: Record<string, string>,
+    options: { pollInterval?: number; timeout?: number; autoCleanup?: boolean } = {},
+  ): Promise<SpeechSynthesisRequest> {
+    // 1. Analyze text first to get TSML
+    const analysis = await this.analyzeAndWait(
+      {
+        language: params.language,
+        text: params.text,
+        force_enqueue: params.force_enqueue,
+      },
+      options,
+    );
+
+    let tsml = analysis.analyzed_text || '';
+
+    // 2. Apply pronunciation replacements
+    for (const [word, pronunciation] of Object.entries(pronunciationMap)) {
+      tsml = replacePronunciation(tsml, word, pronunciation);
+    }
+
+    // 3. Synthesize using the modified TSML
+    return this.synthesizeAndWait(
+      {
+        ...params,
+        text: undefined, // Ignored if analyzed_text is provided
+        analyzed_text: tsml,
+      },
+      options,
+    );
   }
 
   /**

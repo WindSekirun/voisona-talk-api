@@ -90,6 +90,22 @@ const results = await client.bulkSynthesize(
 );
 ```
 
+### Custom Pronunciation
+
+If a word is read incorrectly, you can specify the correct Katakana pronunciation:
+
+```typescript
+await client.synthesizeWithPronunciation(
+  {
+    language: 'ja_JP',
+    text: '焦る必要はありません。',
+  },
+  {
+    焦る: 'アセル', // Fix "Kogeru" to "Aseru"
+  },
+);
+```
+
 ## Development
 
 ### Prerequisites
