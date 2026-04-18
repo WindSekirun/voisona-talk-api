@@ -19,6 +19,8 @@ pnpm add voisona-talk-api
 
 ## Quick Start
 
+Before using the library, ensure your VoiSona Talk editor is configured correctly. See the [Connection Guide](docs/CONNECT_WITH_VOISONA.md) for step-by-step instructions.
+
 ```typescript
 import { VoisonaClient } from 'voisona-talk-api';
 import 'dotenv/config';
@@ -47,14 +49,14 @@ Manage voice styles (emotions) using names instead of index arrays.
 const voiceInfo = await client.getVoiceInformation('voice_name', '1.0.0');
 
 const styleWeights = client.getStyleWeights(voiceInfo, {
-  'Happy': 0.8,
-  'Angry': 0.2
+  Happy: 0.8,
+  Angry: 0.2,
 });
 
 await client.synthesizeAndWait({
   text: 'わーい！',
   language: 'ja_JP',
-  global_parameters: { style_weights: styleWeights }
+  global_parameters: { style_weights: styleWeights },
 });
 ```
 
@@ -67,10 +69,10 @@ await client.synthesizeAndWait({
   text: 'もっと速く！',
   language: 'ja_JP',
   global_parameters: {
-    speed: 1.5,      // 0.2 to 5.0
-    pitch: 100,      // in cents (-600 to 600)
-    intonation: 1.2  // expressive range
-  }
+    speed: 1.5, // 0.2 to 5.0
+    pitch: 100, // in cents (-600 to 600)
+    intonation: 1.2, // expressive range
+  },
 });
 ```
 
@@ -79,10 +81,13 @@ await client.synthesizeAndWait({
 Process multiple messages efficiently.
 
 ```typescript
-const results = await client.bulkSynthesize([
-  { text: 'Message one', language: 'ja_JP' },
-  { text: 'Message two', language: 'ja_JP' }
-], { concurrency: 2 });
+const results = await client.bulkSynthesize(
+  [
+    { text: 'Message one', language: 'ja_JP' },
+    { text: 'Message two', language: 'ja_JP' },
+  ],
+  { concurrency: 2 },
+);
 ```
 
 ## Development

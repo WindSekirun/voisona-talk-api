@@ -1,0 +1,8 @@
+{
+  "name": "esm-test",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "voisona-talk-api": "file:../../"
+  }
+}

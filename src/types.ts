@@ -24,39 +24,39 @@ export interface MetaInformation {
  * Global parameters for speech synthesis.
  */
 export interface GlobalParameters {
-  /** 
-   * Age-like parameter (frequency warping). 
-   * Range: -1 to 1. Default: 0. 
+  /**
+   * Age-like parameter (frequency warping).
+   * Range: -1 to 1. Default: 0.
    */
   alp?: number;
-  /** 
-   * Huskiness control parameter. 
-   * Range: -20 to 20. Default: 0. 
+  /**
+   * Huskiness control parameter.
+   * Range: -20 to 20. Default: 0.
    */
   huskiness?: number;
-  /** 
-   * Scale factor for pitch contour variation. 
-   * Range: 0 to 2. Default: 1. 
+  /**
+   * Scale factor for pitch contour variation.
+   * Range: 0 to 2. Default: 1.
    */
   intonation?: number;
-  /** 
-   * Pitch shift coefficient in cents. 
-   * Range: -600 to 600. Default: 0. 
+  /**
+   * Pitch shift coefficient in cents.
+   * Range: -600 to 600. Default: 0.
    */
   pitch?: number;
-  /** 
-   * Speech rate (speed). 
-   * Range: 0.2 to 5. Default: 1. 
+  /**
+   * Speech rate (speed).
+   * Range: 0.2 to 5. Default: 1.
    */
   speed?: number;
-  /** 
-   * Array of style weight coefficients. 
-   * Typically sums to 1.0. 
+  /**
+   * Array of style weight coefficients.
+   * Typically sums to 1.0.
    */
   style_weights?: number[];
-  /** 
-   * Amplitude multiplier in decibels. 
-   * Range: -8 to 8. Default: 0. 
+  /**
+   * Amplitude multiplier in decibels.
+   * Range: -8 to 8. Default: 0.
    */
   volume?: number;
 }
@@ -162,14 +162,14 @@ export interface VoiceInformation extends VoiceBaseInformation {
 export interface RequestSpeechSynthesisParams {
   /** Language code (e.g., "ja_JP"). Required. */
   language: string;
-  /** 
-   * Source text. Max 500 characters. 
-   * Required if analyzed_text is not provided. 
+  /**
+   * Source text. Max 500 characters.
+   * Required if analyzed_text is not provided.
    */
   text?: string;
-  /** 
-   * TSML analyzed text. Max 50000 characters. 
-   * If provided, 'text' is ignored. 
+  /**
+   * TSML analyzed text. Max 50000 characters.
+   * If provided, 'text' is ignored.
    */
   analyzed_text?: string;
   /** Destination of the output sound. Defaults to 'audio_device'. */

@@ -13,7 +13,7 @@ import {
   VoiceInformation,
   ErrorResponse,
   API_CONSTRAINTS,
-} from './types.js';
+} from './types';
 
 /**
  * Configuration for the VoisonaClient.
@@ -41,7 +41,7 @@ export class VoisonaClient {
    */
   constructor(config: VoisonaClientConfig) {
     this.baseUrl = config.baseUrl ?? 'http://localhost:32766/api/talk/v1';
-    
+
     const email = config.email ?? process.env.VOISONA_EMAIL;
     const password = config.password ?? process.env.VOISONA_PASSWORD;
 
@@ -61,7 +61,7 @@ export class VoisonaClient {
     const response = await fetch(url, {
       ...options,
       headers: {
-        'Authorization': this.authHeader,
+        Authorization: this.authHeader,
         'Content-Type': 'application/json',
         ...options.headers,
       },
@@ -70,14 +70,17 @@ export class VoisonaClient {
     if (!response.ok) {
       let errorData: ErrorResponse;
       try {
-        errorData = await response.json() as ErrorResponse;
+        errorData = (await response.json()) as ErrorResponse;
       } catch {
         throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
       }
       throw new Error(`API Error [${errorData.status}]: ${errorData.title} - ${errorData.detail}`);
     }
 
-    if (response.status === 204 || response.status === 200 && response.headers.get('Content-Length') === '0') {
+    if (
+      response.status === 204 ||
+      (response.status === 200 && response.headers.get('Content-Length') === '0')
+    ) {
       return {} as T;
     }
 
@@ -91,7 +94,8 @@ export class VoisonaClient {
    * @returns A list of speech synthesis base information.
    */
   async listSpeechSynthesisRequests(): Promise<SpeechSynthesisBaseInformation[]> {
-    const data = await this.request<ApiResponse<SpeechSynthesisBaseInformation>>('/speech-syntheses');
+    const data =
+      await this.request<ApiResponse<SpeechSynthesisBaseInformation>>('/speech-syntheses');
     return data.items ?? [];
   }
 
@@ -195,7 +199,7 @@ export class VoisonaClient {
    */
   async listLanguages(): Promise<string[]> {
     const data = await this.request<{ items: { language: string }[] }>('/languages');
-    return (data.items ?? []).map(i => i.language);
+    return (data.items ?? []).map((i) => i.language);
   }
 
   // --- Helpers ---
@@ -209,11 +213,11 @@ export class VoisonaClient {
    */
   async synthesizeAndWait(
     params: RequestSpeechSynthesisParams,
-    options: { pollInterval?: number; timeout?: number } = {}
+    options: { pollInterval?: number; timeout?: number } = {},
   ): Promise<SpeechSynthesisRequest> {
-    const { 
-      pollInterval = API_CONSTRAINTS.POLL_INTERVAL_DEFAULT, 
-      timeout = API_CONSTRAINTS.POLL_TIMEOUT_DEFAULT 
+    const {
+      pollInterval = API_CONSTRAINTS.POLL_INTERVAL_DEFAULT,
+      timeout = API_CONSTRAINTS.POLL_TIMEOUT_DEFAULT,
     } = options;
 
     // Default to 'file' destination as requested in PRD
@@ -227,14 +231,14 @@ export class VoisonaClient {
       const timestamp = Date.now();
       const random = Math.random().toString(36).substring(2, 7);
       const outputDir = join(process.cwd(), 'output');
-      
+
       // Ensure output directory exists
       try {
         mkdirSync(outputDir, { recursive: true });
-      } catch (err) {
+      } catch {
         // Ignore if directory already exists
       }
-      
+
       finalParams.output_file_path = join(outputDir, `output_${timestamp}_${random}.wav`);
     }
 
@@ -247,10 +251,12 @@ export class VoisonaClient {
         return request;
       }
       if (request.state === 'failed') {
-        const detail = request.meta?.warnings ? JSON.stringify(request.meta.warnings) : 'No additional details';
+        const detail = request.meta?.warnings
+          ? JSON.stringify(request.meta.warnings)
+          : 'No additional details';
         throw new Error(`Speech synthesis failed for UUID: ${uuid}. Details: ${detail}`);
       }
-      await new Promise(resolve => setTimeout(resolve, pollInterval));
+      await new Promise((resolve) => setTimeout(resolve, pollInterval));
     }
 
     throw new Error(`Speech synthesis timed out for UUID: ${uuid}`);
@@ -265,11 +271,11 @@ export class VoisonaClient {
    */
   async analyzeAndWait(
     params: RequestTextAnalysisParams,
-    options: { pollInterval?: number; timeout?: number } = {}
+    options: { pollInterval?: number; timeout?: number } = {},
   ): Promise<TextAnalysisRequest> {
-    const { 
-      pollInterval = API_CONSTRAINTS.POLL_INTERVAL_DEFAULT, 
-      timeout = API_CONSTRAINTS.POLL_TIMEOUT_DEFAULT 
+    const {
+      pollInterval = API_CONSTRAINTS.POLL_INTERVAL_DEFAULT,
+      timeout = API_CONSTRAINTS.POLL_TIMEOUT_DEFAULT,
     } = options;
     const { uuid } = await this.requestTextAnalysis(params);
 
@@ -282,7 +288,7 @@ export class VoisonaClient {
       if (request.state === 'failed') {
         throw new Error(`Text analysis failed for UUID: ${uuid}`);
       }
-      await new Promise(resolve => setTimeout(resolve, pollInterval));
+      await new Promise((resolve) => setTimeout(resolve, pollInterval));
     }
 
     throw new Error(`Text analysis timed out for UUID: ${uuid}`);
@@ -296,15 +302,15 @@ export class VoisonaClient {
    */
   async bulkSynthesize(
     items: RequestSpeechSynthesisParams[],
-    options: { concurrency?: number; pollInterval?: number; timeout?: number } = {}
+    options: { concurrency?: number; pollInterval?: number; timeout?: number } = {},
   ): Promise<SpeechSynthesisRequest[]> {
     const { concurrency = 3, ...pollOptions } = options;
     const results: SpeechSynthesisRequest[] = [];
-    
+
     for (let i = 0; i < items.length; i += concurrency) {
       const chunk = items.slice(i, i + concurrency);
       const chunkResults = await Promise.all(
-        chunk.map(item => this.synthesizeAndWait(item, pollOptions))
+        chunk.map((item) => this.synthesizeAndWait(item, pollOptions)),
       );
       results.push(...chunkResults);
     }
@@ -318,10 +324,7 @@ export class VoisonaClient {
    * @param styleWeightsMap A record of style names and their corresponding weights (0.0 to 1.0).
    * @returns A number array representing the style weights in the correct order.
    */
-  getStyleWeights(
-    voiceInfo: VoiceInformation,
-    styleWeightsMap: Record<string, number>
-  ): number[] {
+  getStyleWeights(voiceInfo: VoiceInformation, styleWeightsMap: Record<string, number>): number[] {
     const weights = [...voiceInfo.default_style_weights];
     for (const [name, weight] of Object.entries(styleWeightsMap)) {
       const index = voiceInfo.style_names.indexOf(name);

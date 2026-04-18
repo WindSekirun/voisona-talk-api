@@ -1,4 +1,4 @@
-import { VoisonaClient } from '../src/index.js';
+import { VoisonaClient } from '../src/index';
 import 'dotenv/config';
 
 async function main() {
@@ -15,7 +15,9 @@ async function main() {
 
     if (voices.length > 0) {
       // Find a Japanese voice if available, otherwise use the first one
-      const voice = voices.find(v => v.languages.includes('ja_JP')) || voices[0];
+      const voice = voices.find((v) => v.languages.includes('ja_JP')) || voices[0];
+      if (!voice) return;
+
       console.log(`Using voice: ${voice.display_names[0]?.name} (${voice.voice_name})`);
 
       console.log('Synthesizing Japanese text...');
@@ -30,7 +32,9 @@ async function main() {
       console.log('Synthesis successful!');
       console.log(`Output path: ${result.output_file_path}`);
     } else {
-      console.log('No voices found. Please make sure VoiSona Talk is running and you have voice libraries installed.');
+      console.log(
+        'No voices found. Please make sure VoiSona Talk is running and you have voice libraries installed.',
+      );
     }
   } catch (error) {
     console.error('An error occurred:', error);

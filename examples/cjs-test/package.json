@@ -1,0 +1,7 @@
+{
+  "name": "cjs-test",
+  "version": "1.0.0",
+  "dependencies": {
+    "voisona-talk-api": "file:../../"
+  }
+}

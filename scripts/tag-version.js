@@ -13,7 +13,7 @@ try {
   } catch {
     console.log(`New version detected: ${version}. Creating tag ${tag}...`);
     execSync(`git tag ${tag}`);
-    
+
     console.log(`Pushing tag ${tag} to origin...`);
     execSync(`git push origin ${tag}`);
     console.log(`Successfully pushed ${tag}. GitHub Actions will handle the deployment.`);
