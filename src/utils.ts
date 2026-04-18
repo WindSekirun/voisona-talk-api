@@ -2,7 +2,7 @@
  * Replaces the pronunciation of a specific word in a TSML string.
  *
  * @param tsml The original TSML string.
- * @param word The word to find (the text content of the <word> tag).
+ * @param word The word to find (the text content of the `<word>` tag).
  * @param pronunciation The new pronunciation (in Katakana).
  * @returns The modified TSML string.
  */

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["src/index.ts"],
+  "out": "docs/api",
+  "plugin": ["typedoc-plugin-markdown"],
+  "hideBreadcrumbs": true,
+  "hidePageTitle": true,
+  "entryFileName": "index.md",
+  "readme": "none",
+  "cleanOutputDir": true
+}
