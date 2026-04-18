@@ -45,7 +45,7 @@
     "lint": "eslint . && tsc --noEmit",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
-    "release": "release-it",
+    "release": "release-it --ci",
     "prepare": "node -e \"if (!process.env.CI) require('child_process').spawnSync('husky', {shell: true, stdio: 'inherit'})\""
   },
   "keywords": [],
