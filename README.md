@@ -1,5 +1,7 @@
 # VoiSona Talk API TypeScript Library
 
+[English](README.md) | [日本語](README_jp.md)
+
 A TypeScript-based library for the VoiSona Talk API (v0.9.0), providing a type-safe and intuitive way to integrate speech synthesis and text analysis.
 
 ## What is 'VoiSona Talk'?
@@ -11,7 +13,7 @@ This library allows you to interact with the VoiSona Talk editor's local API, en
 ### Important Notice on Usage
 
 - **Licenses**: To use this library, you must possess a valid license for the VoiSona Talk editor and each voice library you intend to use.
-- **Character Guidelines**: Each voice library character has its own set of usage guidelines (e.g., [Natsuki Karin Guidelines](https://voisona.com/static/pdf/en/natsuki-karin_guidelines.pdf)). You are responsible for reviewing and adhering to the specific guidelines of each character when using their voices.
+- **Character Guidelines**: Each voice library character has its own set of usage guidelines (e.g., [Koharu Rikka Guidelines](https://voisona.com/static/pdf/en/koharu-rikka_guidelines.pdf)). You are responsible for reviewing and adhering to the specific guidelines of each character when using their voices.
 
 
 ## Features
