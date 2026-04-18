@@ -8,7 +8,8 @@ async function main() {
   });
 
   try {
-    const text = 'まもなく列車が到着します。焦る必要はありませんから、安全線の内側でお待ちください。';
+    const text =
+      'まもなく列車が到着します。焦る必要はありませんから、安全線の内側でお待ちください。';
 
     console.log('Synthesizing with custom pronunciation...');
     console.log(`Original Text: ${text}`);
@@ -22,7 +23,7 @@ async function main() {
       },
       {
         焦る: 'アセル',
-      }
+      },
     );
 
     console.log(`Success! Audio saved to: ${result.output_file_path}`);

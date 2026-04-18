@@ -9,9 +9,6 @@
 export function replacePronunciation(tsml: string, word: string, pronunciation: string): string {
   // Matches <word ... original="WORD" ... pronunciation="OLD" ...>WORD</word>
   // We use a regex that looks for the word as content and replaces the pronunciation attribute
-  const regex = new RegExp(
-    `(<word[^>]*pronunciation=")[^"]*("[^>]*>${word}</word>)`,
-    'g'
-  );
+  const regex = new RegExp(`(<word[^>]*pronunciation=")[^"]*("[^>]*>${word}</word>)`, 'g');
   return tsml.replace(regex, `$1${pronunciation}$2`);
 }
