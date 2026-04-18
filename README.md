@@ -8,6 +8,11 @@ A TypeScript-based library for the VoiSona Talk API (v0.9.0), providing a type-s
 
 This library allows you to interact with the VoiSona Talk editor's local API, enabling automated speech generation from your TypeScript/JavaScript applications.
 
+### Important Notice on Usage
+
+- **Licenses**: To use this library, you must possess a valid license for the VoiSona Talk editor and each voice library you intend to use.
+- **Character Guidelines**: Each voice library character has its own set of usage guidelines (e.g., [Natsuki Karin Guidelines](https://voisona.com/static/pdf/en/natsuki-karin_guidelines.pdf)). You are responsible for reviewing and adhering to the specific guidelines of each character when using their voices.
+
 
 ## Features
 
