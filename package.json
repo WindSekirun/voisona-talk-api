@@ -1,6 +1,6 @@
 {
   "name": "voisona-talk-api",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "type": "module",
   "description": "A TypeScript library for the VoiSona Talk API",
   "main": "./dist/index.js",
@@ -14,14 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WindSekirun/voisona-talk-api.git"
+    "url": "git+https://github.com/WindSekirun/voisona-talk-api"
   },
   "bugs": {
     "url": "https://github.com/WindSekirun/voisona-talk-api/issues"
   },
   "homepage": "https://github.com/WindSekirun/voisona-talk-api#readme",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts --clean",
@@ -30,7 +31,7 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "lint": "tsc --noEmit",
-    "prepare": "husky"
+    "prepare": "node -e \"if (!process.env.CI) require('child_process').spawnSync('husky', {shell: true, stdio: 'inherit'})\""
   },
   "keywords": [],
   "author": "",
