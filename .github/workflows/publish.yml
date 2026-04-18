@@ -32,12 +32,19 @@ jobs:
         run: pnpm run build
 
       - name: Publish
-        run: npm publish --provenance --access public --registry=https://registry.npmjs.org/\
+        run: npm publish --provenance --access public --registry=https://registry.npmjs.org/
         env:
           NPM_CONFIG_PROVENANCE: true
 
+      - name: Extract Release Notes
+        id: extract_release_notes
+        run: |
+          # Extract the content between the first and second H2 (##) headers
+          sed -n '/^## \[.*/,/^## \[.*/p' CHANGELOG.md | sed '1d;$d' > release_notes.md
+          echo "NOTES_FILE=release_notes.md" >> $GITHUB_ENV
+
       - name: Create Release
-        uses: softprops/action-gh-release@v3
+        uses: softprops/action-gh-release@v2
         if: github.ref_type == 'tag'
         with:
-          generate_release_notes: true
+          body_path: release_notes.md
