@@ -2,7 +2,11 @@
 
 A TypeScript-based library for the VoiSona Talk API (v0.9.0), providing a type-safe and intuitive way to integrate speech synthesis and text analysis.
 
-## What is 'Voisona'? 
+## What is 'VoiSona Talk'?
+
+[VoiSona Talk](https://voisona.com/talk/) is an AI-powered speech synthesis software that uses deep learning technology to generate high-quality, natural-sounding human voices. It allows users to create expressive narrations and dialogues with fine-grained control over emotions and speech parameters.
+
+This library allows you to interact with the VoiSona Talk editor's local API, enabling automated speech generation from your TypeScript/JavaScript applications.
 
 
 ## Features
