@@ -167,7 +167,12 @@ describe('VoisonaClient Core API', () => {
       // list synthesis
       .mockResolvedValueOnce({
         ok: true,
-        json: async () => ({ items: [{ uuid: 's1', state: 'succeeded' }, { uuid: 's2', state: 'running' }] }),
+        json: async () => ({
+          items: [
+            { uuid: 's1', state: 'succeeded' },
+            { uuid: 's2', state: 'running' },
+          ],
+        }),
       } as Response)
       // list analysis
       .mockResolvedValueOnce({
@@ -182,7 +187,7 @@ describe('VoisonaClient Core API', () => {
     const client = new VoisonaClient(config);
     await client.clearAllCompletedRequests();
 
-    const deleteCalls = vi.mocked(fetch).mock.calls.filter(c => c[1]?.method === 'DELETE');
+    const deleteCalls = vi.mocked(fetch).mock.calls.filter((c) => c[1]?.method === 'DELETE');
     expect(deleteCalls).toHaveLength(2);
     expect(deleteCalls[0]![0]).toContain('/speech-syntheses/s1');
     expect(deleteCalls[1]![0]).toContain('/text-analyses/a1');
