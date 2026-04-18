@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.3.0](https://github.com/WindSekirun/voisona-talk-api/compare/v1.2.0...v1.3.0) (2026-04-18)
+
+### 🚀 Features
+
+* add detailed range validation for global parameters ([4d8013b](https://github.com/WindSekirun/voisona-talk-api/commit/4d8013b65c1a9ce0361c63e5444d0ec9c7a58c98))
+* add onProgress callback to wait-helper methods ([4e5707f](https://github.com/WindSekirun/voisona-talk-api/commit/4e5707fed4beef5500952f779cdbb461bdb5e93b))
+* improve environment compatibility for Basic Auth encoding ([97dbbd4](https://github.com/WindSekirun/voisona-talk-api/commit/97dbbd4606817f49b5090c68f1d75ea10bb51b47))
+* log meta warnings from API responses ([2b6a570](https://github.com/WindSekirun/voisona-talk-api/commit/2b6a5702ca5e3137d71d8c4c0415cc523ffcc529))
+
+### 🐛 Bug Fixes
+
+* ignore docs in ESLint and fix post-process script lint error ([a072680](https://github.com/WindSekirun/voisona-talk-api/commit/a072680c923eae7d6a7eb9104181d2af3d939f96))
+* improve release notes extraction to target only the latest version ([3d345e4](https://github.com/WindSekirun/voisona-talk-api/commit/3d345e49e79154f2b1bd3ef0004ac064cebdde50))
+
+### 🧰 Maintenance
+
+* updating .gitignore ([6114143](https://github.com/WindSekirun/voisona-talk-api/commit/611414315d2b31d342c010e1ae13285820ee525e))
+
+### 📝 Documentation
+
+* complete VitePress documentation with guides, examples, and Catppuccin theme ([e994b12](https://github.com/WindSekirun/voisona-talk-api/commit/e994b12708e25606ded72fee12a8bfe7f3614810))
+
+### 🧪 Testing
+
+* improve coverage for bulkSynthesize and error cases ([07899eb](https://github.com/WindSekirun/voisona-talk-api/commit/07899eba61ee79d2e2b22e42354284901bb76561))
+
 ## [1.2.0](https://github.com/WindSekirun/voisona-talk-api/compare/v1.1.3...v1.2.0) (2026-04-18)
 
 ### 🚀 Features
