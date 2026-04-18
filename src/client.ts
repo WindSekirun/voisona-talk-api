@@ -297,12 +297,18 @@ export class VoisonaClient {
    */
   async synthesizeAndWait(
     params: RequestSpeechSynthesisParams,
-    options: { pollInterval?: number; timeout?: number; autoCleanup?: boolean } = {},
+    options: {
+      pollInterval?: number;
+      timeout?: number;
+      autoCleanup?: boolean;
+      onProgress?: (percentage: number) => void;
+    } = {},
   ): Promise<SpeechSynthesisRequest> {
     const {
       pollInterval = API_CONSTRAINTS.POLL_INTERVAL_DEFAULT,
       timeout = API_CONSTRAINTS.POLL_TIMEOUT_DEFAULT,
       autoCleanup = true,
+      onProgress,
     } = options;
 
     // Default to 'file' destination as requested in PRD
@@ -332,6 +338,11 @@ export class VoisonaClient {
     const startTime = Date.now();
     while (Date.now() - startTime < timeout) {
       const request = await this.getSpeechSynthesisRequest(uuid);
+
+      if (onProgress) {
+        onProgress(request.progress_percentage);
+      }
+
       if (request.state === 'succeeded') {
         if (autoCleanup) {
           await this.deleteSpeechSynthesisRequest(uuid);
@@ -359,18 +370,29 @@ export class VoisonaClient {
    */
   async analyzeAndWait(
     params: RequestTextAnalysisParams,
-    options: { pollInterval?: number; timeout?: number; autoCleanup?: boolean } = {},
+    options: {
+      pollInterval?: number;
+      timeout?: number;
+      autoCleanup?: boolean;
+      onProgress?: (percentage: number) => void;
+    } = {},
   ): Promise<TextAnalysisRequest> {
     const {
       pollInterval = API_CONSTRAINTS.POLL_INTERVAL_DEFAULT,
       timeout = API_CONSTRAINTS.POLL_TIMEOUT_DEFAULT,
       autoCleanup = true,
+      onProgress,
     } = options;
     const { uuid } = await this.requestTextAnalysis(params);
 
     const startTime = Date.now();
     while (Date.now() - startTime < timeout) {
       const request = await this.getTextAnalysisRequest(uuid);
+
+      if (onProgress) {
+        onProgress(request.progress_percentage);
+      }
+
       if (request.state === 'succeeded') {
         if (autoCleanup) {
           await this.deleteTextAnalysisRequest(uuid);
@@ -399,6 +421,7 @@ export class VoisonaClient {
       pollInterval?: number;
       timeout?: number;
       autoCleanup?: boolean;
+      onProgress?: (percentage: number) => void;
     } = {},
   ): Promise<SpeechSynthesisRequest[]> {
     const { concurrency = 3, ...pollOptions } = options;
@@ -426,7 +449,12 @@ export class VoisonaClient {
   async synthesizeWithPronunciation(
     params: RequestSpeechSynthesisParams & { text: string },
     pronunciationMap: Record<string, string>,
-    options: { pollInterval?: number; timeout?: number; autoCleanup?: boolean } = {},
+    options: {
+      pollInterval?: number;
+      timeout?: number;
+      autoCleanup?: boolean;
+      onProgress?: (percentage: number) => void;
+    } = {},
   ): Promise<SpeechSynthesisRequest> {
     // 1. Analyze text first to get TSML
     const analysis = await this.analyzeAndWait(

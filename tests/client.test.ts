@@ -150,6 +150,38 @@ describe('VoisonaClient Core API', () => {
     expect(result.analyzed_text).toBe('tsml');
   });
 
+  it('should call onProgress in synthesizeAndWait', async () => {
+    vi.mocked(fetch)
+      // requestSpeechSynthesis
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ uuid: 'uuid-123' }),
+      } as Response)
+      // getSpeechSynthesisRequest (running)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ uuid: 'uuid-123', state: 'running', progress_percentage: 50 }),
+      } as Response)
+      // getSpeechSynthesisRequest (succeeded)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ uuid: 'uuid-123', state: 'succeeded', progress_percentage: 100 }),
+      } as Response)
+      // deleteSpeechSynthesisRequest
+      .mockResolvedValueOnce({ ok: true, status: 204 } as Response);
+
+    const client = new VoisonaClient(config);
+    const onProgress = vi.fn();
+
+    await client.synthesizeAndWait(
+      { language: 'ja_JP', text: 'test' },
+      { onProgress, pollInterval: 1 },
+    );
+
+    expect(onProgress).toHaveBeenCalledWith(50);
+    expect(onProgress).toHaveBeenCalledWith(100);
+  });
+
   it('should deleteTextAnalysisRequest', async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
