@@ -39,8 +39,9 @@ jobs:
       - name: Extract Release Notes
         id: extract_release_notes
         run: |
-          # Extract the content between the first and second H2 (##) headers
-          sed -n '/^## \[.*/,/^## \[.*/p' CHANGELOG.md | sed '1d;$d' > release_notes.md
+          # Extract the content of the first section (most recent version) from CHANGELOG.md
+          # This skips the first header and stops before the second header
+          awk '/^## \[/{count++; if (count == 2) exit; next} count == 1' CHANGELOG.md > release_notes.md
           echo "NOTES_FILE=release_notes.md" >> $GITHUB_ENV
 
       - name: Create Release
