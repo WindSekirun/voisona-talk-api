@@ -1,6 +1,6 @@
 {
   "name": "voisona-talk-api",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "description": "A TypeScript library for the VoiSona Talk API",
   "main": "./dist/index.js",
@@ -14,12 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WindSekirun/voisona-talk-api.git"
+    "url": "git+https://github.com/windsekirun/voisona-talk-api.git"
   },
   "bugs": {
-    "url": "https://github.com/WindSekirun/voisona-talk-api/issues"
+    "url": "https://github.com/windsekirun/voisona-talk-api/issues"
   },
-  "homepage": "https://github.com/WindSekirun/voisona-talk-api#readme",
+  "homepage": "https://github.com/windsekirun/voisona-talk-api#readme",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
