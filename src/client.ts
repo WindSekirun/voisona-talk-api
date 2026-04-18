@@ -134,8 +134,28 @@ export class VoisonaClient {
    * Requests a new speech synthesis. This enqueues the request.
    * @param params Parameters for the synthesis request.
    * @returns The created request information including its UUID.
+   * @throws Error if validation fails.
    */
   async requestSpeechSynthesis(params: RequestSpeechSynthesisParams): Promise<ContentCreated> {
+    if (!params.analyzed_text && (!params.text || params.text.trim().length === 0)) {
+      throw new Error('Either "text" or "analyzed_text" must be provided for speech synthesis.');
+    }
+
+    if (params.text && params.text.length > API_CONSTRAINTS.TEXT_MAX_LENGTH) {
+      throw new Error(
+        `"text" exceeds maximum length of ${API_CONSTRAINTS.TEXT_MAX_LENGTH} characters.`,
+      );
+    }
+
+    if (
+      params.analyzed_text &&
+      params.analyzed_text.length > API_CONSTRAINTS.ANALYZED_TEXT_MAX_LENGTH
+    ) {
+      throw new Error(
+        `"analyzed_text" exceeds maximum length of ${API_CONSTRAINTS.ANALYZED_TEXT_MAX_LENGTH} characters.`,
+      );
+    }
+
     return this.request<ContentCreated>('/speech-syntheses', {
       method: 'POST',
       body: JSON.stringify(params),
@@ -176,8 +196,19 @@ export class VoisonaClient {
    * Requests a new text analysis for speech synthesis.
    * @param params Parameters for the analysis request.
    * @returns The created request information including its UUID.
+   * @throws Error if validation fails.
    */
   async requestTextAnalysis(params: RequestTextAnalysisParams): Promise<ContentCreated> {
+    if (!params.text || params.text.trim().length === 0) {
+      throw new Error('"text" is required and cannot be empty for text analysis.');
+    }
+
+    if (params.text.length > API_CONSTRAINTS.TEXT_MAX_LENGTH) {
+      throw new Error(
+        `"text" exceeds maximum length of ${API_CONSTRAINTS.TEXT_MAX_LENGTH} characters.`,
+      );
+    }
+
     return this.request<ContentCreated>('/text-analyses', {
       method: 'POST',
       body: JSON.stringify(params),

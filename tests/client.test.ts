@@ -90,6 +90,36 @@ describe('VoisonaClient Core API', () => {
     expect(result.uuid).toBe('new-uuid');
   });
 
+  it('should validate text length for analysis', async () => {
+    const client = new VoisonaClient(config);
+    const longText = 'a'.repeat(501);
+    await expect(client.requestTextAnalysis({ language: 'ja_JP', text: longText })).rejects.toThrow(
+      'exceeds maximum length',
+    );
+  });
+
+  it('should validate empty text for analysis', async () => {
+    const client = new VoisonaClient(config);
+    await expect(client.requestTextAnalysis({ language: 'ja_JP', text: '' })).rejects.toThrow(
+      'required and cannot be empty',
+    );
+  });
+
+  it('should validate synthesis params (missing text and analyzed_text)', async () => {
+    const client = new VoisonaClient(config);
+    await expect(client.requestSpeechSynthesis({ language: 'ja_JP' })).rejects.toThrow(
+      'Either "text" or "analyzed_text" must be provided',
+    );
+  });
+
+  it('should validate synthesis params (text too long)', async () => {
+    const client = new VoisonaClient(config);
+    const longText = 'a'.repeat(501);
+    await expect(
+      client.requestSpeechSynthesis({ language: 'ja_JP', text: longText }),
+    ).rejects.toThrow('exceeds maximum length');
+  });
+
   it('should getTextAnalysisRequest', async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
