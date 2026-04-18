@@ -1,6 +1,6 @@
 {
-  "name": "voisona-api",
-  "version": "1.0.0",
+  "name": "voisona-talk-api",
+  "version": "1.0.1",
   "type": "module",
   "description": "A TypeScript library for the VoiSona Talk API",
   "main": "./dist/index.js",
