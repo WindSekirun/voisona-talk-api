@@ -1,0 +1,39 @@
+changelog:
+  categories:
+    - title: '🚀 Features'
+      labels:
+        - 'feature'
+        - 'feat'
+        - 'enhancement'
+    - title: '🐛 Bug Fixes'
+      labels:
+        - 'bug'
+        - 'fix'
+        - 'bugfix'
+    - title: '🧪 Testing'
+      labels:
+        - 'test'
+        - 'tests'
+    - title: '📝 Documentation'
+      labels:
+        - 'documentation'
+        - 'docs'
+    - title: '🧰 Maintenance'
+      labels:
+        - 'chore'
+        - 'refactor'
+        - 'dependencies'
+        - 'ci'
+  exclude:
+    labels:
+      - 'skip-changelog'
+    authors:
+      - 'bot'
+
+  replacers:
+    - search: 'refactor:'
+      replace: 'refactor'
+    - search: 'feat:'
+      replace: 'feature'
+    - search: 'fix:'
+      replace: 'fix'
