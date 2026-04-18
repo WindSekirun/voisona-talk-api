@@ -41,6 +41,12 @@ Always use `client.getStyleWeights(voiceInfo, styleMap)` to map emotion names to
 - **Tagging**: Automated via Husky and `scripts/tag-version.js` on `git push`.
 - **Documentation**: JSDoc is mandatory for all exported methods and interfaces. Refer to `docs/talk_api.yaml` for precise range and constraint values.
 
+## Agent Hooks
+
+This project uses Gemini CLI hooks to automate development standards:
+
+- **Prettier Enforcer (`AfterTool`)**: Automatically runs `pnpm exec prettier --write` after any `write_file` or `replace` tool call. This ensures the codebase always stays formatted according to the project's rules without manual intervention.
+
 ## Deployment Logic
 
 - GitHub Actions (`publish.yml`) handles npm publishing via OIDC (Trusted Publishers).

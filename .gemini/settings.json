@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "AfterTool": [
+      {
+        "matcher": "write_file|replace",
+        "hooks": [
+          {
+            "name": "prettier-enforcer",
+            "type": "command",
+            "command": "node $GEMINI_PROJECT_DIR/.gemini/hooks/prettier-hook.js"
+          }
+        ]
+      }
+    ]
+  }
+}
