@@ -109,7 +109,18 @@ export class VoisonaClient {
         return {} as T;
       }
 
-      return response.json() as Promise<T>;
+      const data = (await response.json()) as any;
+
+      // Log warnings if present in meta information
+      if (
+        data?.meta?.warnings &&
+        Array.isArray(data.meta.warnings) &&
+        data.meta.warnings.length > 0
+      ) {
+        console.warn(`VoiSona Talk API Warning: ${JSON.stringify(data.meta.warnings, null, 2)}`);
+      }
+
+      return data as T;
     } catch (error: any) {
       if (error.cause?.code === 'ECONNREFUSED' || error.message?.includes('fetch failed')) {
         throw new Error(

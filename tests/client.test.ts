@@ -182,6 +182,23 @@ describe('VoisonaClient Core API', () => {
     expect(onProgress).toHaveBeenCalledWith(100);
   });
 
+  it('should log warnings if present in meta', async () => {
+    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    vi.mocked(fetch).mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        items: [],
+        meta: { warnings: [{ message: 'Something is not right' }] },
+      }),
+    } as Response);
+
+    const client = new VoisonaClient(config);
+    await client.listVoices();
+
+    expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining('Something is not right'));
+    consoleSpy.mockRestore();
+  });
+
   it('should deleteTextAnalysisRequest', async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
