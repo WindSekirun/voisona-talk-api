@@ -20,3 +20,4 @@ Thumbs.db
 
 # Output directory for synthesized files
 output/
+docs/.vitepress/cache/
