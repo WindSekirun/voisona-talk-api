@@ -204,4 +204,34 @@ describe('VoisonaClient Core API', () => {
     const client = new VoisonaClient(config);
     await expect(client.listVoices()).rejects.toThrow('API Error [400]: Error - Reason');
   });
+
+  it('should throw clear error when service is unreachable (ECONNREFUSED)', async () => {
+    vi.mocked(fetch).mockRejectedValue({
+      cause: { code: 'ECONNREFUSED' },
+    });
+
+    const client = new VoisonaClient(config);
+    await expect(client.listVoices()).rejects.toThrow(
+      'Please ensure VoiSona Talk is running and the port is correct.',
+    );
+  });
+
+  it('should return true for isServiceRunning when reachable', async () => {
+    vi.mocked(fetch).mockResolvedValue({
+      ok: true,
+    } as Response);
+
+    const client = new VoisonaClient(config);
+    const result = await client.isServiceRunning();
+    expect(result).toBe(true);
+    expect(fetch).toHaveBeenCalledWith(expect.stringContaining('/languages'), expect.any(Object));
+  });
+
+  it('should return false for isServiceRunning when unreachable', async () => {
+    vi.mocked(fetch).mockRejectedValue(new Error('fetch failed'));
+
+    const client = new VoisonaClient(config);
+    const result = await client.isServiceRunning();
+    expect(result).toBe(false);
+  });
 });

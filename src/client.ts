@@ -55,38 +55,67 @@ export class VoisonaClient {
   }
 
   /**
+   * Checks if the VoiSona Talk service is currently running and reachable.
+   * @returns True if the service is running, false otherwise.
+   */
+  async isServiceRunning(): Promise<boolean> {
+    try {
+      const url = `${this.baseUrl}/languages`;
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: { Authorization: this.authHeader },
+      });
+      return response.ok;
+    } catch {
+      return false;
+    }
+  }
+
+  /**
    * Performs an internal HTTP request to the API.
    * @private
    */
   private async request<T>(path: string, options: RequestInit = {}): Promise<T> {
     const url = `${this.baseUrl}${path}`;
-    const response = await fetch(url, {
-      ...options,
-      headers: {
-        Authorization: this.authHeader,
-        'Content-Type': 'application/json',
-        ...options.headers,
-      },
-    });
+    try {
+      const response = await fetch(url, {
+        ...options,
+        headers: {
+          Authorization: this.authHeader,
+          'Content-Type': 'application/json',
+          ...options.headers,
+        },
+      });
 
-    if (!response.ok) {
-      let errorData: ErrorResponse;
-      try {
-        errorData = (await response.json()) as ErrorResponse;
-      } catch {
-        throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
+      if (!response.ok) {
+        let errorData: ErrorResponse;
+        try {
+          errorData = (await response.json()) as ErrorResponse;
+        } catch {
+          throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
+        }
+        throw new Error(
+          `API Error [${errorData.status}]: ${errorData.title} - ${errorData.detail}`,
+        );
       }
-      throw new Error(`API Error [${errorData.status}]: ${errorData.title} - ${errorData.detail}`);
-    }
 
-    if (
-      response.status === 204 ||
-      (response.status === 200 && response.headers.get('Content-Length') === '0')
-    ) {
-      return {} as T;
-    }
+      if (
+        response.status === 204 ||
+        (response.status === 200 && response.headers.get('Content-Length') === '0')
+      ) {
+        return {} as T;
+      }
 
-    return response.json() as Promise<T>;
+      return response.json() as Promise<T>;
+    } catch (error: any) {
+      if (error.cause?.code === 'ECONNREFUSED' || error.message?.includes('fetch failed')) {
+        throw new Error(
+          `Could not connect to VoiSona Talk API at ${this.baseUrl}. Please ensure VoiSona Talk is running and the port is correct.`,
+          { cause: error },
+        );
+      }
+      throw error;
+    }
   }
 
   // --- Speech Synthesis ---

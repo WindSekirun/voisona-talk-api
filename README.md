@@ -2,6 +2,9 @@
 
 A TypeScript-based library for the VoiSona Talk API (v0.9.0), providing a type-safe and intuitive way to integrate speech synthesis and text analysis.
 
+## What is 'Voisona'? 
+
+
 ## Features
 
 - **Type Safety**: Full TypeScript support for all OpenAPI schemas.
