@@ -47,6 +47,23 @@ This project uses Gemini CLI hooks to automate development standards:
 
 - **Prettier Enforcer (`AfterTool`)**: Automatically runs `pnpm exec prettier --write` after any `write_file` or `replace` tool call. This ensures the codebase always stays formatted according to the project's rules without manual intervention.
 
+## Agent Workflow
+
+Agents should strictly follow this lifecycle:
+
+1.  **Research**: Map the codebase and reproduce issues.
+2.  **Strategy**: Propose a plan and wait for confirmation if the scope is broad.
+3.  **Execution & Validation**:
+    -   Apply surgical changes. (The Prettier Hook will handle formatting automatically).
+    -   **Always** run `pnpm test` and `pnpm lint` after changes.
+4.  **Commit**: Once verified, stage all changes and commit with a clear, concise message (following the `type: description` format).
+
+## Commit Policy
+
+-   **Atomic Commits**: Group related changes into a single commit.
+-   **Conventional Commits**: Use types like `feat`, `fix`, `chore`, `test`, `refactor`, or `docs`.
+-   **No Staging/Pushing**: Never `git push` or stage files unless specifically requested or completing a task.
+
 ## Deployment Logic
 
 - GitHub Actions (`publish.yml`) handles npm publishing via OIDC (Trusted Publishers).
