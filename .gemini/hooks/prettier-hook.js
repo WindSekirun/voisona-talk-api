@@ -1,5 +1,4 @@
-const fs = require('fs');
-const { execSync } = require('child_process');
+import { execSync } from 'node:child_process';
 
 function log(msg) {
   process.stderr.write(`[prettier-hook]: ${msg}\n`);

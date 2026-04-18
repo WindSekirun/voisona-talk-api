@@ -1,1 +1,2 @@
 pnpm exec prettier --check .
+pnpm lint
