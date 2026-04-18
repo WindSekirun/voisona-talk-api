@@ -42,6 +42,14 @@ This example demonstrates:
 pnpm tsx examples/advanced-options.ts
 ```
 
+### Queue Management
+
+This example demonstrates how to check the queue status and clean up completed or failed requests.
+
+```bash
+pnpm tsx examples/queue-management.ts
+```
+
 ### Module Compatibility Tests
 
 These sub-projects verify that the library works correctly in both ESM and CJS environments using local file referencing.

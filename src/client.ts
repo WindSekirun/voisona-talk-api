@@ -12,6 +12,7 @@ import {
   VoiceBaseInformation,
   VoiceInformation,
   ErrorResponse,
+  RequestState,
   API_CONSTRAINTS,
 } from './types';
 
@@ -213,11 +214,12 @@ export class VoisonaClient {
    */
   async synthesizeAndWait(
     params: RequestSpeechSynthesisParams,
-    options: { pollInterval?: number; timeout?: number } = {},
+    options: { pollInterval?: number; timeout?: number; autoCleanup?: boolean } = {},
   ): Promise<SpeechSynthesisRequest> {
     const {
       pollInterval = API_CONSTRAINTS.POLL_INTERVAL_DEFAULT,
       timeout = API_CONSTRAINTS.POLL_TIMEOUT_DEFAULT,
+      autoCleanup = true,
     } = options;
 
     // Default to 'file' destination as requested in PRD
@@ -248,6 +250,9 @@ export class VoisonaClient {
     while (Date.now() - startTime < timeout) {
       const request = await this.getSpeechSynthesisRequest(uuid);
       if (request.state === 'succeeded') {
+        if (autoCleanup) {
+          await this.deleteSpeechSynthesisRequest(uuid);
+        }
         return request;
       }
       if (request.state === 'failed') {
@@ -271,11 +276,12 @@ export class VoisonaClient {
    */
   async analyzeAndWait(
     params: RequestTextAnalysisParams,
-    options: { pollInterval?: number; timeout?: number } = {},
+    options: { pollInterval?: number; timeout?: number; autoCleanup?: boolean } = {},
   ): Promise<TextAnalysisRequest> {
     const {
       pollInterval = API_CONSTRAINTS.POLL_INTERVAL_DEFAULT,
       timeout = API_CONSTRAINTS.POLL_TIMEOUT_DEFAULT,
+      autoCleanup = true,
     } = options;
     const { uuid } = await this.requestTextAnalysis(params);
 
@@ -283,6 +289,9 @@ export class VoisonaClient {
     while (Date.now() - startTime < timeout) {
       const request = await this.getTextAnalysisRequest(uuid);
       if (request.state === 'succeeded') {
+        if (autoCleanup) {
+          await this.deleteTextAnalysisRequest(uuid);
+        }
         return request;
       }
       if (request.state === 'failed') {
@@ -302,7 +311,12 @@ export class VoisonaClient {
    */
   async bulkSynthesize(
     items: RequestSpeechSynthesisParams[],
-    options: { concurrency?: number; pollInterval?: number; timeout?: number } = {},
+    options: {
+      concurrency?: number;
+      pollInterval?: number;
+      timeout?: number;
+      autoCleanup?: boolean;
+    } = {},
   ): Promise<SpeechSynthesisRequest[]> {
     const { concurrency = 3, ...pollOptions } = options;
     const results: SpeechSynthesisRequest[] = [];
@@ -334,4 +348,72 @@ export class VoisonaClient {
     }
     return weights;
   }
+
+  // --- Queue Management Utilities ---
+
+  /**
+   * Retrieves the current status summary of the request queue.
+   * @returns Counts of requests in each state.
+   */
+  async getQueueStatus(): Promise<{
+    synthesis: Record<RequestState, number>;
+    analysis: Record<RequestState, number>;
+  }> {
+    const [synthesisReqs, analysisReqs] = await Promise.all([
+      this.listSpeechSynthesisRequests(),
+      this.listTextAnalysisRequests(),
+    ]);
+
+    const getCounts = (reqs: { state: RequestState }[]) => {
+      return reqs.reduce(
+        (acc, req) => {
+          acc[req.state]++;
+          return acc;
+        },
+        { queued: 0, running: 0, succeeded: 0, failed: 0 } as Record<RequestState, number>,
+      );
+    };
+
+    return {
+      synthesis: getCounts(synthesisReqs),
+      analysis: getCounts(analysisReqs),
+    };
+  }
+
+  /**
+   * Clears speech synthesis requests that are in specific states.
+   * @param states States to clear. Defaults to ['succeeded', 'failed'].
+   */
+  async clearSpeechSynthesisRequests(
+    states: RequestState[] = ['succeeded', 'failed'],
+  ): Promise<void> {
+    const reqs = await this.listSpeechSynthesisRequests();
+    const targets = reqs.filter((r) => states.includes(requestToState(r.state)));
+    await Promise.all(targets.map((r) => this.deleteSpeechSynthesisRequest(r.uuid)));
+  }
+
+  /**
+   * Clears text analysis requests that are in specific states.
+   * @param states States to clear. Defaults to ['succeeded', 'failed'].
+   */
+  async clearTextAnalysisRequests(states: RequestState[] = ['succeeded', 'failed']): Promise<void> {
+    const reqs = await this.listTextAnalysisRequests();
+    const targets = reqs.filter((r) => states.includes(requestToState(r.state)));
+    await Promise.all(targets.map((r) => this.deleteTextAnalysisRequest(r.uuid)));
+  }
+
+  /**
+   * Clears all completed (succeeded or failed) requests from both synthesis and analysis queues.
+   */
+  async clearAllCompletedRequests(): Promise<void> {
+    await Promise.all([this.clearSpeechSynthesisRequests(), this.clearTextAnalysisRequests()]);
+  }
+}
+
+/**
+ * Internal helper to cast string state to RequestState type.
+ * @private
+ */
+function requestToState(state: string): RequestState {
+  return state as RequestState;
 }

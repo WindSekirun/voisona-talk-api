@@ -38,7 +38,8 @@ describe('VoisonaClient Helpers', () => {
           progress_percentage: 100,
           output_file_path: 'output.wav',
         }),
-      } as Response);
+      } as Response)
+      .mockResolvedValueOnce({ ok: true, status: 204 } as Response); // for autoCleanup DELETE
 
     const promise = client.synthesizeAndWait(
       { language: 'ja_JP', text: 'Hello' },
@@ -49,7 +50,38 @@ describe('VoisonaClient Helpers', () => {
 
     const result = await promise;
     expect(result.state).toBe('succeeded');
-    expect(fetch).toHaveBeenCalledTimes(3);
+    // 1 request + 2 polls + 1 delete (autoCleanup)
+    expect(fetch).toHaveBeenCalledTimes(4);
+    expect(fetch).toHaveBeenLastCalledWith(
+      expect.stringContaining(`/speech-syntheses/${uuid}`),
+      expect.objectContaining({ method: 'DELETE' }),
+    );
+  });
+
+  it('should not delete if autoCleanup is false', async () => {
+    const client = new VoisonaClient(config);
+    const uuid = 'no-cleanup-uuid';
+
+    vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ uuid }),
+    } as Response);
+
+    vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        uuid,
+        state: 'succeeded',
+        progress_percentage: 100,
+      }),
+    } as Response);
+
+    await client.synthesizeAndWait({ language: 'ja_JP', text: 'Hello' }, { autoCleanup: false });
+
+    // 1 request + 1 poll
+    expect(fetch).toHaveBeenCalledTimes(2);
+    const deleteCalls = vi.mocked(fetch).mock.calls.filter((call) => call[1]?.method === 'DELETE');
+    expect(deleteCalls).toHaveLength(0);
   });
 
   it('should throw error if synthesis fails', async () => {
@@ -85,10 +117,16 @@ describe('VoisonaClient Helpers', () => {
     const uuid = 'ana-uuid';
 
     vi.mocked(fetch).mockResolvedValueOnce({ ok: true, json: async () => ({ uuid }) } as Response);
-    vi.mocked(fetch).mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({ uuid, state: 'succeeded', analyzed_text: 'tsml' }),
-    } as Response);
+    vi.mocked(fetch)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ uuid, state: 'succeeded', analyzed_text: 'tsml' }),
+      } as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        headers: new Headers({ 'Content-Length': '0' }),
+      } as Response); // for DELETE
 
     const promise = client.analyzeAndWait(
       { language: 'ja_JP', text: 'Hello' },
@@ -98,6 +136,12 @@ describe('VoisonaClient Helpers', () => {
 
     const result = await promise;
     expect(result.analyzed_text).toBe('tsml');
+    // 1 request + 1 poll + 1 delete
+    expect(fetch).toHaveBeenCalledTimes(3);
+    expect(fetch).toHaveBeenLastCalledWith(
+      expect.stringContaining(`/text-analyses/${uuid}`),
+      expect.objectContaining({ method: 'DELETE' }),
+    );
   });
 
   it('should throw error if analysis fails', async () => {
@@ -204,27 +248,34 @@ describe('VoisonaClient Helpers', () => {
   it('should bulk synthesize in chunks', async () => {
     const client = new VoisonaClient(config);
 
-    // For 3 items:
-    // Chunk 1 (2 items): 2 requests + 2 polls
-    // Chunk 2 (1 item): 1 request + 1 poll
-    vi.mocked(fetch)
-      .mockResolvedValueOnce({ ok: true, json: async () => ({ uuid: 'uuid1' }) } as Response)
-      .mockResolvedValueOnce({ ok: true, json: async () => ({ uuid: 'uuid2' }) } as Response)
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({ uuid: 'uuid1', state: 'succeeded' }),
-      } as Response)
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({ uuid: 'uuid2', state: 'succeeded' }),
-      } as Response)
-      .mockResolvedValueOnce({ ok: true, json: async () => ({ uuid: 'uuid3' }) } as Response)
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({ uuid: 'uuid3', state: 'succeeded' }),
-      } as Response);
+    vi.mocked(fetch).mockImplementation(async (url) => {
+      const urlStr = url.toString();
+      if (urlStr.endsWith('/speech-syntheses')) {
+        const body = JSON.parse((vi.mocked(fetch).mock.calls.at(-1)![1]!.body as string) || '{}');
+        const text = body.text || '';
+        let uuid = 'unknown';
+        if (text === 'One') uuid = 'uuid1';
+        if (text === 'Two') uuid = 'uuid2';
+        if (text === 'Three') uuid = 'uuid3';
+        return { ok: true, json: async () => ({ uuid }) } as Response;
+      }
+      if (urlStr.includes('/speech-syntheses/uuid')) {
+        const method = vi.mocked(fetch).mock.calls.at(-1)![1]!.method;
+        if (method === 'DELETE') {
+          return { ok: true, status: 204 } as Response;
+        }
+        return {
+          ok: true,
+          json: async () => ({
+            uuid: urlStr.split('/').pop(),
+            state: 'succeeded',
+          }),
+        } as Response;
+      }
+      return { ok: false, status: 404 } as Response;
+    });
 
-    const promise = client.bulkSynthesize(
+    const results = await client.bulkSynthesize(
       [
         { language: 'ja_JP', text: 'One' },
         { language: 'ja_JP', text: 'Two' },
@@ -233,11 +284,8 @@ describe('VoisonaClient Helpers', () => {
       { concurrency: 2, pollInterval: 100 },
     );
 
-    await vi.advanceTimersByTimeAsync(100);
-    await vi.advanceTimersByTimeAsync(100);
-
-    const results = await promise;
     expect(results).toHaveLength(3);
+    expect(results.map((r) => r.uuid)).toEqual(['uuid1', 'uuid2', 'uuid3']);
   });
 
   it('should map style weights correctly', () => {
