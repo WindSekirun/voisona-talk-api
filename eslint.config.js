@@ -25,6 +25,13 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ['dist/**', 'node_modules/**', 'coverage/**', 'examples/**/node_modules/**'],
+    ignores: [
+      'dist/**',
+      'node_modules/**',
+      'coverage/**',
+      'docs/**',
+      'scripts/**',
+      'examples/**/node_modules/**',
+    ],
   },
 );
