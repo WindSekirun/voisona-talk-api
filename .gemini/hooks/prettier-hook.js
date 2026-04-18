@@ -32,6 +32,12 @@ async function main() {
       const filePath = toolInput ? toolInput.file_path : null;
 
       if (filePath && (toolName === 'write_file' || toolName === 'replace')) {
+        if (filePath.endsWith('.md')) {
+          log(`Skipping prettier for ${filePath} (markdown)`);
+          process.stdout.write(JSON.stringify({ decision: 'allow' }));
+          return;
+        }
+
         log(`Running prettier for ${filePath}...`);
         try {
           // Use pnpm exec prettier --write
