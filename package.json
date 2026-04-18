@@ -1,0 +1,47 @@
+{
+  "name": "voisona-api",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A TypeScript library for the VoiSona Talk API",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WindSekirun/voisona-talk-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/WindSekirun/voisona-talk-api/issues"
+  },
+  "homepage": "https://github.com/WindSekirun/voisona-talk-api#readme",
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "dev": "tsup src/index.ts --format cjs,esm --watch --dts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@10.33.0",
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "@vitest/coverage-v8": "^4.1.4",
+    "tsup": "^8.5.1",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.4"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "path-browserify": "^1.0.1"
+  }
+}
