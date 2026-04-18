@@ -139,6 +139,71 @@ describe('VoisonaClient Core API', () => {
     ).rejects.toThrow('Global parameter "pitch" must be between -600 and 600');
   });
 
+  it('should validate analyzed_text length', async () => {
+    const client = new VoisonaClient(config);
+    const longAnalyzedText = 'a'.repeat(50001);
+    await expect(
+      client.requestSpeechSynthesis({ language: 'ja_JP', analyzed_text: longAnalyzedText }),
+    ).rejects.toThrow('exceeds maximum length of 50000');
+  });
+
+  it('should bulkSynthesize multiple requests', async () => {
+    vi.mocked(fetch)
+      // Call 1
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ uuid: 'u1' }),
+      } as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ uuid: 'u1', state: 'succeeded' }),
+      } as Response)
+      .mockResolvedValueOnce({ ok: true, status: 204 } as Response)
+      // Call 2
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ uuid: 'u2' }),
+      } as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ uuid: 'u2', state: 'succeeded' }),
+      } as Response)
+      .mockResolvedValueOnce({ ok: true, status: 204 } as Response);
+
+    const client = new VoisonaClient(config);
+    const results = await client.bulkSynthesize(
+      [
+        { language: 'ja_JP', text: 'one' },
+        { language: 'ja_JP', text: 'two' },
+      ],
+      { concurrency: 1, pollInterval: 1 },
+    );
+
+    expect(results).toHaveLength(2);
+    expect(results[0]?.uuid).toBe('u1');
+    expect(results[1]?.uuid).toBe('u2');
+  });
+
+  it('should timeout in synthesizeAndWait', async () => {
+    vi.mocked(fetch)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ uuid: 'timeout-uuid' }),
+      } as Response)
+      .mockResolvedValue({
+        ok: true,
+        json: async () => ({ uuid: 'timeout-uuid', state: 'running' }),
+      } as Response);
+
+    const client = new VoisonaClient(config);
+    await expect(
+      client.synthesizeAndWait(
+        { language: 'ja_JP', text: 'test' },
+        { timeout: 10, pollInterval: 1 },
+      ),
+    ).rejects.toThrow('timed out');
+  });
+
   it('should getTextAnalysisRequest', async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
