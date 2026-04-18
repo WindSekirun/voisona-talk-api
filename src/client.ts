@@ -51,7 +51,10 @@ export class VoisonaClient {
       throw new Error('VoiSona Talk API requires email and password for Basic Authentication.');
     }
 
-    this.authHeader = `Basic ${Buffer.from(`${email}:${password}`).toString('base64')}`;
+    const credentials = `${email}:${password}`;
+    const encoded =
+      typeof btoa !== 'undefined' ? btoa(credentials) : Buffer.from(credentials).toString('base64');
+    this.authHeader = `Basic ${encoded}`;
   }
 
   /**
