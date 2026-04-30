@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.4.0](https://github.com/WindSekirun/voisona-talk-api/compare/v1.3.0...v1.4.0) (2026-04-30)
+
+### 🚀 Features
+
+* support VoiSona Talk API v0.9.1 ([4c71d91](https://github.com/WindSekirun/voisona-talk-api/commit/4c71d91106b9ff8a9b88b5acc8e293a155426691))
+
+### 🧰 Maintenance
+
+* achieve zero production dependencies ([a78c249](https://github.com/WindSekirun/voisona-talk-api/commit/a78c2499101e00b00d8beedc8d8fc84c5548fedd))
+
 ## [1.3.0](https://github.com/WindSekirun/voisona-talk-api/compare/v1.2.0...v1.3.0) (2026-04-18)
 
 ### 🚀 Features
