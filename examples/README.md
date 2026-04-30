@@ -22,12 +22,31 @@ This directory contains example scripts demonstrating how to use the `voisona-ta
 
 ## Running Examples
 
+Since this library has **zero production dependencies**, we recommend using the native Node.js environment file support (available in Node.js 20.6+).
+
 ### Simple Synthesis
 
 This example lists available voices and synthesizes a Japanese greeting into a `.wav` file.
 
 ```bash
-pnpm tsx examples/simple-synthesis.ts
+pnpm tsx --env-file=.env examples/simple-synthesis.ts
+```
+
+### Memory Synthesis (New in v0.9.1)
+This example demonstrates:
+- **Direct WAV retrieval**: Using `synthesizeToBuffer` to get WAV data as a buffer without saving to a file.
+- **Audio Device Info**: Retrieving information about the current output device.
+
+```bash
+pnpm tsx --env-file=.env examples/memory-synthesis.ts
+```
+
+### Phoneme Duration Control (New in v0.9.1)
+This example demonstrates:
+- **Phoneme Duration Control**: Specifying exact timing for individual phonemes using an array of durations.
+
+```bash
+pnpm tsx --env-file=.env examples/phoneme-durations.ts
 ```
 
 ### Advanced Options
@@ -37,14 +56,14 @@ This example demonstrates:
 - **Bulk Synthesis**: Processing multiple messages concurrently.
 
 ```bash
-pnpm tsx examples/advanced-options.ts
+pnpm tsx --env-file=.env examples/advanced-options.ts
 ```
 
 ### Custom Pronunciation
 This example demonstrates how to fix misread words (like kanji with multiple readings) using the `synthesizeWithPronunciation` helper.
 
 ```bash
-pnpm tsx examples/custom-pronunciation.ts
+pnpm tsx --env-file=.env examples/custom-pronunciation.ts
 ```
 
 ### Queue Management
@@ -52,8 +71,15 @@ pnpm tsx examples/custom-pronunciation.ts
 This example demonstrates how to check the queue status and clean up completed or failed requests.
 
 ```bash
-pnpm tsx examples/queue-management.ts
+pnpm tsx --env-file=.env examples/queue-management.ts
 ```
+
+::: tip Older Node.js Versions
+If you are using Node.js version < 20.6, you can set environment variables manually in your shell or use a tool like `dotenv-cli`:
+```bash
+npx dotenv-cli -- pnpm tsx examples/simple-synthesis.ts
+```
+:::
 
 ### Module Compatibility Tests
 

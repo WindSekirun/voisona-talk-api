@@ -36,7 +36,6 @@ pnpm add voisona-talk-api
 
 ```typescript
 import { VoisonaClient } from 'voisona-talk-api';
-import 'dotenv/config';
 
 const client = new VoisonaClient({
   email: process.env.VOISONA_EMAIL,
@@ -123,15 +122,34 @@ await client.synthesizeWithPronunciation(
 
 ### 前提条件
 
-- Node.js v18+
+- Node.js v18+ (Node.js 20.6+ 以上のネイティブ `.env` サポートを推奨)
 - pnpm
 - **VoiSona Talk エディタ** (ローカルで実行中)
+
+### 環境設定
+
+VoiSona の認証情報を環境変数または `.env` ファイルに設定します：
+
+```env
+VOISONA_EMAIL=your_email@example.com
+VOISONA_PASSWORD=your_password
+```
 
 ### スクリプト
 
 - `pnpm run build`: CJS および ESM ビルド。
 - `pnpm test`: ユニットテストの実行。
 - `pnpm run test:coverage`: カバレッジレポートの生成。
+
+### 例題の実行
+
+Node.js 20.6+ で `.env` ファイルを使用して例題を実行する場合：
+
+```bash
+pnpm tsx --env-file=.env examples/simple-synthesis.ts
+```
+
+20.6 未満の Node.js バージョンの場合、環境変数を手動で設定するか、`dotenv-cli` などを利用してください。
 
 ## ライセンス
 

@@ -4,7 +4,6 @@ Before synthesizing speech, you might want to see which voice libraries are inst
 
 ```typescript
 import { VoisonaClient } from 'voisona-talk-api';
-import 'dotenv/config';
 
 const client = new VoisonaClient({
   email: process.env.VOISONA_EMAIL,

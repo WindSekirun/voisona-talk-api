@@ -1,5 +1,4 @@
 import { VoisonaClient } from '../src/index';
-import 'dotenv/config';
 
 async function main() {
   // Ensure VOISONA_EMAIL and VOISONA_PASSWORD are set in your .env file

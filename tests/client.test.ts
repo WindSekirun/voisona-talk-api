@@ -397,4 +397,157 @@ describe('VoisonaClient Core API', () => {
     const result = await client.isServiceRunning();
     expect(result).toBe(false);
   });
+
+  // --- 0.9.1 Features Tests ---
+
+  it('should get default audio device info', async () => {
+    vi.mocked(fetch).mockResolvedValue({
+      ok: true,
+      json: async () => ({ device_name: 'Speakers', device_type: 'Windows Audio' }),
+    } as Response);
+
+    const client = new VoisonaClient(config);
+    const device = await client.getDefaultAudioDevice();
+    expect(device.device_name).toBe('Speakers');
+    expect(device.device_type).toBe('Windows Audio');
+  });
+
+  it('should get synthesized WAV data', async () => {
+    const mockBuffer = new ArrayBuffer(10);
+    vi.mocked(fetch).mockResolvedValue({
+      ok: true,
+      headers: new Headers({ 'Content-Type': 'audio/wav' }),
+      arrayBuffer: async () => mockBuffer,
+    } as Response);
+
+    const client = new VoisonaClient(config);
+    const result = await client.getSynthesizedWav('uuid');
+    expect(result).toBeInstanceOf(ArrayBuffer);
+    expect(result.byteLength).toBe(10);
+  });
+
+  it('should validate phoneme_durations range', async () => {
+    const client = new VoisonaClient(config);
+    await expect(
+      client.requestSpeechSynthesis({
+        language: 'ja_JP',
+        text: 'test',
+        phoneme_durations: [11],
+      }),
+    ).rejects.toThrow('Phoneme duration must be between -1 and 10');
+
+    await expect(
+      client.requestSpeechSynthesis({
+        language: 'ja_JP',
+        text: 'test',
+        phoneme_durations: [-2],
+      }),
+    ).rejects.toThrow('Phoneme duration must be between -1 and 10');
+  });
+
+  it('should handle synthesizeToBuffer', async () => {
+    const mockBuffer = new ArrayBuffer(5);
+    vi.mocked(fetch)
+      // requestSpeechSynthesis
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ uuid: 'mem-uuid' }),
+      } as Response)
+      // getSpeechSynthesisRequest (succeeded)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ uuid: 'mem-uuid', state: 'succeeded' }),
+      } as Response)
+      // getSynthesizedWav
+      .mockResolvedValueOnce({
+        ok: true,
+        headers: new Headers({ 'Content-Type': 'audio/wav' }),
+        arrayBuffer: async () => mockBuffer,
+      } as Response)
+      // deleteSpeechSynthesisRequest
+      .mockResolvedValueOnce({ ok: true, status: 204 } as Response);
+
+    const client = new VoisonaClient(config);
+    const result = await client.synthesizeToBuffer(
+      { language: 'ja_JP', text: 'test' },
+      { pollInterval: 1 },
+    );
+
+    expect(result).toBeInstanceOf(ArrayBuffer);
+    expect(result.byteLength).toBe(5);
+  });
+
+  it('should cleanup on synthesizeToBuffer failure', async () => {
+    vi.mocked(fetch)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ uuid: 'fail-mem-uuid' }),
+      } as Response)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ uuid: 'fail-mem-uuid', state: 'succeeded' }),
+      } as Response)
+      .mockResolvedValueOnce({
+        ok: false,
+        status: 500,
+        statusText: 'Internal Server Error',
+      } as Response)
+      .mockResolvedValueOnce({ ok: true, status: 204 } as Response);
+
+    const client = new VoisonaClient(config);
+    await expect(
+      client.synthesizeToBuffer({ language: 'ja_JP', text: 'test' }, { pollInterval: 1 }),
+    ).rejects.toThrow('HTTP Error: 500');
+
+    // Verify cleanup call
+    const deleteCall = vi
+      .mocked(fetch)
+      .mock.calls.find(
+        (c) =>
+          String(c[0]).includes('/speech-syntheses/fail-mem-uuid') && c[1]?.method === 'DELETE',
+      );
+    expect(deleteCall).toBeDefined();
+  });
+
+  it('should handle synthesizeWithPronunciation', async () => {
+    vi.mocked(fetch)
+      // analyzeAndWait -> requestTextAnalysis
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ uuid: 'a1' }) } as Response)
+      // analyzeAndWait -> getTextAnalysisRequest
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          uuid: 'a1',
+          state: 'succeeded',
+          analyzed_text: '<TSML><word pronunciation="KOGERU">焦る</word></TSML>',
+        }),
+      } as Response)
+      // analyzeAndWait -> deleteTextAnalysisRequest
+      .mockResolvedValueOnce({ ok: true, status: 204 } as Response)
+      // synthesizeAndWait -> requestSpeechSynthesis
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ uuid: 's1' }) } as Response)
+      // synthesizeAndWait -> getSpeechSynthesisRequest
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ uuid: 's1', state: 'succeeded' }),
+      } as Response)
+      // synthesizeAndWait -> deleteSpeechSynthesisRequest
+      .mockResolvedValueOnce({ ok: true, status: 204 } as Response);
+
+    const client = new VoisonaClient(config);
+    const result = await client.synthesizeWithPronunciation(
+      { language: 'ja_JP', text: '焦る' },
+      { 焦る: 'アセル' },
+      { pollInterval: 1 },
+    );
+
+    expect(result.uuid).toBe('s1');
+    const synthCall = vi
+      .mocked(fetch)
+      .mock.calls.find(
+        (c) => String(c[0]).includes('/speech-syntheses') && c[1]?.method === 'POST',
+      );
+    // The body is a JSON string, so the TSML inside it will have escaped quotes
+    expect(synthCall![1]!.body).toContain('pronunciation=\\"アセル\\"');
+  });
 });

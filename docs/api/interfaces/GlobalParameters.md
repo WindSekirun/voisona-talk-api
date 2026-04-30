@@ -6,7 +6,7 @@
 
 # Interface: GlobalParameters
 
-Defined in: [types.ts:26](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L26)
+Defined in: [types.ts:29](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L29)
 
 Global parameters for speech synthesis.
 
@@ -16,7 +16,7 @@ Global parameters for speech synthesis.
 
 > `optional` **alp?**: `number`
 
-Defined in: [types.ts:31](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L31)
+Defined in: [types.ts:34](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L34)
 
 Age-like parameter (frequency warping).
 Range: -1 to 1. Default: 0.
@@ -27,7 +27,7 @@ Range: -1 to 1. Default: 0.
 
 > `optional` **huskiness?**: `number`
 
-Defined in: [types.ts:36](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L36)
+Defined in: [types.ts:39](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L39)
 
 Huskiness control parameter.
 Range: -20 to 20. Default: 0.
@@ -38,7 +38,7 @@ Range: -20 to 20. Default: 0.
 
 > `optional` **intonation?**: `number`
 
-Defined in: [types.ts:41](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L41)
+Defined in: [types.ts:44](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L44)
 
 Scale factor for pitch contour variation.
 Range: 0 to 2. Default: 1.
@@ -49,7 +49,7 @@ Range: 0 to 2. Default: 1.
 
 > `optional` **pitch?**: `number`
 
-Defined in: [types.ts:46](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L46)
+Defined in: [types.ts:49](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L49)
 
 Pitch shift coefficient in cents.
 Range: -600 to 600. Default: 0.
@@ -60,7 +60,7 @@ Range: -600 to 600. Default: 0.
 
 > `optional` **speed?**: `number`
 
-Defined in: [types.ts:51](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L51)
+Defined in: [types.ts:54](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L54)
 
 Speech rate (speed).
 Range: 0.2 to 5. Default: 1.
@@ -71,7 +71,7 @@ Range: 0.2 to 5. Default: 1.
 
 > `optional` **style\_weights?**: `number`[]
 
-Defined in: [types.ts:56](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L56)
+Defined in: [types.ts:59](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L59)
 
 Array of style weight coefficients.
 Typically sums to 1.0.
@@ -82,7 +82,7 @@ Typically sums to 1.0.
 
 > `optional` **volume?**: `number`
 
-Defined in: [types.ts:61](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L61)
+Defined in: [types.ts:64](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L64)
 
 Amplitude multiplier in decibels.
 Range: -8 to 8. Default: 0.

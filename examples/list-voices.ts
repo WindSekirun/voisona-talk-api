@@ -1,7 +1,7 @@
-import { VoisonaClient } from '../src/index';
-import 'dotenv/config';
+import { VoisonaClient } from '../src';
 
 /**
+
  * Example: List Available Voices
  * This example demonstrates how to fetch and display the list of
  * installed voice libraries in your VoiSona Talk editor.

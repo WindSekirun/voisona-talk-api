@@ -6,7 +6,7 @@
 
 # Interface: VoiceInformation
 
-Defined in: [types.ts:150](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L150)
+Defined in: [types.ts:158](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L158)
 
 Detailed information about a voice library, including styles.
 
@@ -20,7 +20,7 @@ Detailed information about a voice library, including styles.
 
 > **default\_style\_weights**: `number`[]
 
-Defined in: [types.ts:152](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L152)
+Defined in: [types.ts:160](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L160)
 
 Default weights for each style.
 
@@ -30,7 +30,7 @@ Default weights for each style.
 
 > **display\_names**: `object`[]
 
-Defined in: [types.ts:135](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L135)
+Defined in: [types.ts:143](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L143)
 
 Display names in different languages.
 
@@ -52,7 +52,7 @@ Display names in different languages.
 
 > **languages**: `string`[]
 
-Defined in: [types.ts:140](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L140)
+Defined in: [types.ts:148](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L148)
 
 Supported languages.
 
@@ -66,7 +66,7 @@ Supported languages.
 
 > `optional` **meta?**: [`MetaInformation`](MetaInformation.md)
 
-Defined in: [types.ts:156](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L156)
+Defined in: [types.ts:164](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L164)
 
 Metadata information.
 
@@ -76,7 +76,7 @@ Metadata information.
 
 > **style\_names**: `string`[]
 
-Defined in: [types.ts:154](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L154)
+Defined in: [types.ts:162](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L162)
 
 Names of the available styles.
 
@@ -86,7 +86,7 @@ Names of the available styles.
 
 > **voice\_name**: `string`
 
-Defined in: [types.ts:142](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L142)
+Defined in: [types.ts:150](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L150)
 
 Internal name of the voice library.
 
@@ -100,7 +100,7 @@ Internal name of the voice library.
 
 > **voice\_version**: `string`
 
-Defined in: [types.ts:144](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L144)
+Defined in: [types.ts:152](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L152)
 
 Version string of the voice library.
 

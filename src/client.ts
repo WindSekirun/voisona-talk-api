@@ -12,6 +12,7 @@ import {
   TextAnalysisRequest,
   VoiceBaseInformation,
   VoiceInformation,
+  AudioDeviceInfo,
   ErrorResponse,
   RequestState,
   API_CONSTRAINTS,
@@ -104,9 +105,14 @@ export class VoisonaClient {
 
       if (
         response.status === 204 ||
-        (response.status === 200 && response.headers.get('Content-Length') === '0')
+        (response.status === 200 && response.headers?.get('Content-Length') === '0')
       ) {
         return {} as T;
+      }
+
+      // Handle binary data (WAV)
+      if (response.headers?.get('Content-Type')?.includes('audio/wav')) {
+        return (await response.arrayBuffer()) as T;
       }
 
       const data = (await response.json()) as any;
@@ -192,6 +198,19 @@ export class VoisonaClient {
       validate('volume', gp.volume, API_CONSTRAINTS.VOLUME);
     }
 
+    if (params.phoneme_durations) {
+      for (const duration of params.phoneme_durations) {
+        if (
+          duration < API_CONSTRAINTS.PHONEME_DURATION.MIN ||
+          duration > API_CONSTRAINTS.PHONEME_DURATION.MAX
+        ) {
+          throw new Error(
+            `Phoneme duration must be between ${API_CONSTRAINTS.PHONEME_DURATION.MIN} and ${API_CONSTRAINTS.PHONEME_DURATION.MAX}.`,
+          );
+        }
+      }
+    }
+
     return this.request<ContentCreated>('/speech-syntheses', {
       method: 'POST',
       body: JSON.stringify(params),
@@ -215,6 +234,16 @@ export class VoisonaClient {
     await this.request<void>(`/speech-syntheses/${uuid}`, {
       method: 'DELETE',
     });
+  }
+
+  /**
+   * Gets the WAV data of synthesized speech.
+   * Available only when destination is 'memory' and state is 'succeeded'.
+   * @param uuid The unique ID of the request.
+   * @returns The WAV data as an ArrayBuffer.
+   */
+  async getSynthesizedWav(uuid: string): Promise<ArrayBuffer> {
+    return this.request<ArrayBuffer>(`/speech-syntheses/${uuid}/wav`);
   }
 
   // --- Text Analysis ---
@@ -300,6 +329,14 @@ export class VoisonaClient {
     return (data.items ?? []).map((i) => i.language);
   }
 
+  /**
+   * Gets information about the default audio output device.
+   * @returns Information about the default audio device.
+   */
+  async getDefaultAudioDevice(): Promise<AudioDeviceInfo> {
+    return this.request<AudioDeviceInfo>('/audio-devices/default');
+  }
+
   // --- Helpers ---
 
   /**
@@ -358,10 +395,14 @@ export class VoisonaClient {
       }
 
       if (request.state === 'succeeded') {
+        // We don't autoCleanup yet if we might need the WAV (though for 'file' it's already saved)
+        // For consistency with getSynthesizedWav, we might want to wait if it's 'memory'
+        // But synthesizeAndWait is general.
+        const result = request;
         if (autoCleanup) {
           await this.deleteSpeechSynthesisRequest(uuid);
         }
-        return request;
+        return result;
       }
       if (request.state === 'failed') {
         const detail = request.meta?.warnings
@@ -373,6 +414,48 @@ export class VoisonaClient {
     }
 
     throw new Error(`Speech synthesis timed out for UUID: ${uuid}`);
+  }
+
+  /**
+   * Convenience method to request speech synthesis to memory and retrieve the WAV data.
+   * @param params Parameters for the synthesis request (destination will be forced to 'memory').
+   * @param options Polling and cleanup options.
+   * @returns The WAV data as an ArrayBuffer.
+   */
+  async synthesizeToBuffer(
+    params: RequestSpeechSynthesisParams,
+    options: {
+      pollInterval?: number;
+      timeout?: number;
+      autoCleanup?: boolean;
+      onProgress?: (percentage: number) => void;
+    } = {},
+  ): Promise<ArrayBuffer> {
+    const { autoCleanup = true, ...pollOptions } = options;
+
+    const request = await this.synthesizeAndWait(
+      {
+        ...params,
+        destination: 'memory',
+      },
+      {
+        ...pollOptions,
+        autoCleanup: false, // Must not delete until we get the WAV
+      },
+    );
+
+    try {
+      const buffer = await this.getSynthesizedWav(request.uuid);
+      if (autoCleanup) {
+        await this.deleteSpeechSynthesisRequest(request.uuid);
+      }
+      return buffer;
+    } catch (error) {
+      if (autoCleanup) {
+        await this.deleteSpeechSynthesisRequest(request.uuid).catch(() => {});
+      }
+      throw error;
+    }
   }
 
   /**

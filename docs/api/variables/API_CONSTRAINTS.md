@@ -8,7 +8,7 @@
 
 > `const` **API\_CONSTRAINTS**: `object`
 
-Defined in: [types.ts:240](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L240)
+Defined in: [types.ts:265](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L265)
 
 API Constraints according to the OpenAPI specification.
 
@@ -53,6 +53,18 @@ API Constraints according to the OpenAPI specification.
 #### INTONATION.MIN
 
 > `readonly` **MIN**: `0` = `0`
+
+### PHONEME\_DURATION
+
+> `readonly` **PHONEME\_DURATION**: `object`
+
+#### PHONEME\_DURATION.MAX
+
+> `readonly` **MAX**: `10` = `10`
+
+#### PHONEME\_DURATION.MIN
+
+> `readonly` **MIN**: `-1` = `-1`
 
 ### PITCH
 

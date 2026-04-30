@@ -1,5 +1,5 @@
 /**
- * VoiSona Talk API Types (v0.9.0)
+ * VoiSona Talk API Types (v0.9.1)
  */
 
 /**
@@ -9,8 +9,11 @@ export type RequestState = 'queued' | 'running' | 'succeeded' | 'failed';
 
 /**
  * Destination of the synthesized speech sound.
+ * - 'audio_device': Output through the default audio device.
+ * - 'file': Save to a WAV file.
+ * - 'memory': Store in memory for retrieval via API.
  */
-export type Destination = 'audio_device' | 'file';
+export type Destination = 'audio_device' | 'file' | 'memory';
 
 /**
  * Metadata information containing warnings.
@@ -93,7 +96,12 @@ export interface SpeechSynthesisRequest extends SpeechSynthesisBaseInformation {
   global_parameters?: GlobalParameters;
   /** Array of phoneme labels. */
   phonemes?: string[];
-  /** Array of phoneme durations in seconds. */
+  /**
+   * Requested phoneme durations in seconds.
+   * Returned only when the request included phoneme_durations.
+   */
+  requested_phoneme_durations?: number[];
+  /** Actual phoneme durations in seconds. */
   phoneme_durations?: number[];
   /** Name of the voice library used. */
   voice_name?: string;
@@ -157,6 +165,18 @@ export interface VoiceInformation extends VoiceBaseInformation {
 }
 
 /**
+ * Information about the audio output device.
+ */
+export interface AudioDeviceInfo {
+  /** Device name. */
+  device_name: string;
+  /** Device type (e.g. "Windows Audio", "CoreAudio", "ASIO"). */
+  device_type: string;
+  /** Metadata information. */
+  meta?: MetaInformation;
+}
+
+/**
  * Parameters for requesting speech synthesis.
  */
 export interface RequestSpeechSynthesisParams {
@@ -182,6 +202,11 @@ export interface RequestSpeechSynthesisParams {
   force_enqueue?: boolean;
   /** Global synthesis parameters. */
   global_parameters?: GlobalParameters;
+  /**
+   * Requested phoneme durations in seconds.
+   * -1 means automatic.
+   */
+  phoneme_durations?: number[];
   /** Specific voice name to use. */
   voice_name?: string;
   /** Specific voice version to use. */
@@ -248,4 +273,5 @@ export const API_CONSTRAINTS = {
   PITCH: { MIN: -600, MAX: 600 },
   SPEED: { MIN: 0.2, MAX: 5 },
   VOLUME: { MIN: -8, MAX: 8 },
+  PHONEME_DURATION: { MIN: -1, MAX: 10 },
 } as const;

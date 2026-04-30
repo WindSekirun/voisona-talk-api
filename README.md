@@ -37,7 +37,6 @@ Before using the library, ensure your VoiSona Talk editor is configured correctl
 
 ```typescript
 import { VoisonaClient } from 'voisona-talk-api';
-import 'dotenv/config';
 
 const client = new VoisonaClient({
   email: process.env.VOISONA_EMAIL,
@@ -124,15 +123,34 @@ await client.synthesizeWithPronunciation(
 
 ### Prerequisites
 
-- Node.js v18+
+- Node.js v18+ (v20.6+ recommended for native `.env` support)
 - pnpm
 - **VoiSona Talk Editor** (Running locally)
+
+### Configuration
+
+Set your VoiSona credentials as environment variables or in a `.env` file:
+
+```env
+VOISONA_EMAIL=your_email@example.com
+VOISONA_PASSWORD=your_password
+```
 
 ### Scripts
 
 - `pnpm run build`: Build for CJS and ESM.
 - `pnpm test`: Run unit tests.
 - `pnpm run test:coverage`: Generate coverage report.
+
+### Running Examples
+
+To run an example using a `.env` file (Node.js 20.6+):
+
+```bash
+pnpm tsx --env-file=.env examples/simple-synthesis.ts
+```
+
+For older Node.js versions, set environment variables manually or use `dotenv-cli`.
 
 ## License
 

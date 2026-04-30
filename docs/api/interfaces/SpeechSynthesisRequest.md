@@ -6,7 +6,7 @@
 
 # Interface: SpeechSynthesisRequest
 
-Defined in: [types.ts:87](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L87)
+Defined in: [types.ts:90](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L90)
 
 Detailed information for a speech synthesis request.
 
@@ -20,7 +20,7 @@ Detailed information for a speech synthesis request.
 
 > `optional` **analyzed\_text?**: `string`
 
-Defined in: [types.ts:89](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L89)
+Defined in: [types.ts:92](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L92)
 
 TSML analyzed text used for synthesis.
 
@@ -30,7 +30,7 @@ TSML analyzed text used for synthesis.
 
 > **destination**: [`Destination`](../type-aliases/Destination.md)
 
-Defined in: [types.ts:69](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L69)
+Defined in: [types.ts:72](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L72)
 
 Destination of the synthesized sound.
 
@@ -44,7 +44,7 @@ Destination of the synthesized sound.
 
 > `optional` **duration?**: `number`
 
-Defined in: [types.ts:91](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L91)
+Defined in: [types.ts:94](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L94)
 
 Duration of the synthetic sound in seconds.
 
@@ -54,7 +54,7 @@ Duration of the synthetic sound in seconds.
 
 > `optional` **global\_parameters?**: [`GlobalParameters`](GlobalParameters.md)
 
-Defined in: [types.ts:93](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L93)
+Defined in: [types.ts:96](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L96)
 
 Global parameters used for synthesis.
 
@@ -64,7 +64,7 @@ Global parameters used for synthesis.
 
 > **language**: `string`
 
-Defined in: [types.ts:71](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L71)
+Defined in: [types.ts:74](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L74)
 
 Language code (e.g., "ja_JP").
 
@@ -78,7 +78,7 @@ Language code (e.g., "ja_JP").
 
 > `optional` **meta?**: [`MetaInformation`](MetaInformation.md)
 
-Defined in: [types.ts:103](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L103)
+Defined in: [types.ts:111](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L111)
 
 Metadata information.
 
@@ -88,7 +88,7 @@ Metadata information.
 
 > `optional` **output\_file\_path?**: `string`
 
-Defined in: [types.ts:73](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L73)
+Defined in: [types.ts:76](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L76)
 
 Absolute path to the output WAV file. Meaningful only if destination is 'file'.
 
@@ -102,9 +102,9 @@ Absolute path to the output WAV file. Meaningful only if destination is 'file'.
 
 > `optional` **phoneme\_durations?**: `number`[]
 
-Defined in: [types.ts:97](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L97)
+Defined in: [types.ts:105](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L105)
 
-Array of phoneme durations in seconds.
+Actual phoneme durations in seconds.
 
 ***
 
@@ -112,7 +112,7 @@ Array of phoneme durations in seconds.
 
 > `optional` **phonemes?**: `string`[]
 
-Defined in: [types.ts:95](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L95)
+Defined in: [types.ts:98](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L98)
 
 Array of phoneme labels.
 
@@ -122,7 +122,7 @@ Array of phoneme labels.
 
 > **progress\_percentage**: `number`
 
-Defined in: [types.ts:75](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L75)
+Defined in: [types.ts:78](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L78)
 
 Progress of the request (0 to 100).
 
@@ -132,11 +132,22 @@ Progress of the request (0 to 100).
 
 ***
 
+### requested\_phoneme\_durations?
+
+> `optional` **requested\_phoneme\_durations?**: `number`[]
+
+Defined in: [types.ts:103](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L103)
+
+Requested phoneme durations in seconds.
+Returned only when the request included phoneme_durations.
+
+***
+
 ### state
 
 > **state**: [`RequestState`](../type-aliases/RequestState.md)
 
-Defined in: [types.ts:77](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L77)
+Defined in: [types.ts:80](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L80)
 
 Current state of the request.
 
@@ -150,7 +161,7 @@ Current state of the request.
 
 > **text**: `string`
 
-Defined in: [types.ts:79](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L79)
+Defined in: [types.ts:82](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L82)
 
 Source text for synthesis.
 
@@ -164,7 +175,7 @@ Source text for synthesis.
 
 > **uuid**: `string`
 
-Defined in: [types.ts:81](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L81)
+Defined in: [types.ts:84](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L84)
 
 Unique ID for the request.
 
@@ -178,7 +189,7 @@ Unique ID for the request.
 
 > `optional` **voice\_name?**: `string`
 
-Defined in: [types.ts:99](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L99)
+Defined in: [types.ts:107](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L107)
 
 Name of the voice library used.
 
@@ -188,6 +199,6 @@ Name of the voice library used.
 
 > `optional` **voice\_version?**: `string`
 
-Defined in: [types.ts:101](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L101)
+Defined in: [types.ts:109](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L109)
 
 Version of the voice library used.

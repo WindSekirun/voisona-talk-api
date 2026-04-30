@@ -1,7 +1,7 @@
-import { VoisonaClient } from '../src/index';
-import 'dotenv/config';
+import { VoisonaClient } from '../src';
 
 /**
+
  * Example: Custom Pronunciation
  * This example shows how to fix misreadings by overriding the
  * internal TSML (Text Synthesis Markup Language) pronunciation.

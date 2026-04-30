@@ -6,7 +6,7 @@
 
 # Interface: ContentCreated
 
-Defined in: [types.ts:216](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L216)
+Defined in: [types.ts:241](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L241)
 
 Response for a successful request creation.
 
@@ -16,7 +16,7 @@ Response for a successful request creation.
 
 > `optional` **meta?**: [`MetaInformation`](MetaInformation.md)
 
-Defined in: [types.ts:220](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L220)
+Defined in: [types.ts:245](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L245)
 
 Metadata information.
 
@@ -26,6 +26,6 @@ Metadata information.
 
 > **uuid**: `string`
 
-Defined in: [types.ts:218](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L218)
+Defined in: [types.ts:243](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L243)
 
 UUID of the created request.

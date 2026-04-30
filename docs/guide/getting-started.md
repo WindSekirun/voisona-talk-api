@@ -36,7 +36,6 @@ Initialize the client and generate your first speech file in just a few lines of
 
 ```typescript
 import { VoisonaClient } from 'voisona-talk-api';
-import 'dotenv/config';
 
 const client = new VoisonaClient({
   email: process.env.VOISONA_EMAIL,

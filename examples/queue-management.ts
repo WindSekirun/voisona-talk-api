@@ -1,5 +1,4 @@
 import { VoisonaClient } from '../src/index';
-import 'dotenv/config';
 
 async function main() {
   const client = new VoisonaClient({

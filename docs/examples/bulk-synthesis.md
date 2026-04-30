@@ -4,7 +4,6 @@ Process multiple speech synthesis requests efficiently with concurrency control.
 
 ```typescript
 import { VoisonaClient } from 'voisona-talk-api';
-import 'dotenv/config';
 
 const client = new VoisonaClient({
   email: process.env.VOISONA_EMAIL,

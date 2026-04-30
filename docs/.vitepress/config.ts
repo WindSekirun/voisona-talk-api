@@ -23,6 +23,7 @@ export default defineConfig({
           { text: 'Voice Selection Rules', link: '/guide/voice-selection' },
           { text: 'Custom Pronunciation', link: '/guide/custom-pronunciation' },
           { text: 'Advanced Style Control', link: '/guide/advanced-control' },
+          { text: 'Output Destinations', link: '/guide/output-destinations' },
           { text: 'Phoneme Data & Timing', link: '/guide/phoneme-data' },
           { text: 'Queue Management', link: '/guide/queue-management' },
         ],
@@ -32,6 +33,7 @@ export default defineConfig({
         items: [
           { text: 'List Available Voices', link: '/examples/list-voices' },
           { text: 'Simple Synthesis', link: '/examples/simple-synthesis' },
+          { text: 'Memory Synthesis', link: '/examples/memory-synthesis' },
           { text: 'Bulk Synthesis', link: '/examples/bulk-synthesis' },
         ],
       },

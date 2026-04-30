@@ -8,6 +8,6 @@
 
 > **RequestState** = `"queued"` \| `"running"` \| `"succeeded"` \| `"failed"`
 
-Defined in: [types.ts:8](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L8)
+Defined in: [types.ts:8](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L8)
 
 State of a speech synthesis or text analysis request.

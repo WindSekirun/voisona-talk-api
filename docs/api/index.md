@@ -11,6 +11,7 @@
 ## Interfaces
 
 - [ApiResponse](interfaces/ApiResponse.md)
+- [AudioDeviceInfo](interfaces/AudioDeviceInfo.md)
 - [ContentCreated](interfaces/ContentCreated.md)
 - [ErrorResponse](interfaces/ErrorResponse.md)
 - [GlobalParameters](interfaces/GlobalParameters.md)

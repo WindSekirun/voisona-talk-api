@@ -6,7 +6,7 @@
 
 # Interface: RequestTextAnalysisParams
 
-Defined in: [types.ts:194](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L194)
+Defined in: [types.ts:219](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L219)
 
 Parameters for requesting text analysis.
 
@@ -16,7 +16,7 @@ Parameters for requesting text analysis.
 
 > `optional` **force\_enqueue?**: `boolean`
 
-Defined in: [types.ts:200](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L200)
+Defined in: [types.ts:225](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L225)
 
 Whether to force enqueue by removing old requests. Defaults to false.
 
@@ -26,7 +26,7 @@ Whether to force enqueue by removing old requests. Defaults to false.
 
 > **language**: `string`
 
-Defined in: [types.ts:196](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L196)
+Defined in: [types.ts:221](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L221)
 
 Language code (e.g., "ja_JP"). Required.
 
@@ -36,6 +36,6 @@ Language code (e.g., "ja_JP"). Required.
 
 > **text**: `string`
 
-Defined in: [types.ts:198](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/types.ts#L198)
+Defined in: [types.ts:223](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L223)
 
 Text to analyze. Min 1, Max 500 characters.

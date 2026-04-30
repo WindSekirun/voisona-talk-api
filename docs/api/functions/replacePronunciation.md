@@ -8,7 +8,7 @@
 
 > **replacePronunciation**(`tsml`, `word`, `pronunciation`): `string`
 
-Defined in: [utils.ts:9](https://github.com/WindSekirun/voisona-talk-api/blob/07899eba61ee79d2e2b22e42354284901bb76561/src/utils.ts#L9)
+Defined in: [utils.ts:9](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/utils.ts#L9)
 
 Replaces the pronunciation of a specific word in a TSML string.
 
