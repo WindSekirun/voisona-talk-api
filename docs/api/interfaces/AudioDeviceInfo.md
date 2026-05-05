@@ -6,7 +6,7 @@
 
 # Interface: AudioDeviceInfo
 
-Defined in: [types.ts:170](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L170)
+Defined in: [types.ts:170](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L170)
 
 Information about the audio output device.
 
@@ -16,7 +16,7 @@ Information about the audio output device.
 
 > **device\_name**: `string`
 
-Defined in: [types.ts:172](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L172)
+Defined in: [types.ts:172](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L172)
 
 Device name.
 
@@ -26,7 +26,7 @@ Device name.
 
 > **device\_type**: `string`
 
-Defined in: [types.ts:174](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L174)
+Defined in: [types.ts:174](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L174)
 
 Device type (e.g. "Windows Audio", "CoreAudio", "ASIO").
 
@@ -36,6 +36,6 @@ Device type (e.g. "Windows Audio", "CoreAudio", "ASIO").
 
 > `optional` **meta?**: [`MetaInformation`](MetaInformation.md)
 
-Defined in: [types.ts:176](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L176)
+Defined in: [types.ts:176](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L176)
 
 Metadata information.

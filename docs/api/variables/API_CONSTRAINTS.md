@@ -8,7 +8,7 @@
 
 > `const` **API\_CONSTRAINTS**: `object`
 
-Defined in: [types.ts:265](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L265)
+Defined in: [types.ts:265](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L265)
 
 API Constraints according to the OpenAPI specification.
 

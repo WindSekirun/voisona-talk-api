@@ -6,7 +6,7 @@
 
 # Interface: TextAnalysisBaseInformation
 
-Defined in: [types.ts:117](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L117)
+Defined in: [types.ts:117](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L117)
 
 Base information for a text analysis request.
 
@@ -20,7 +20,7 @@ Base information for a text analysis request.
 
 > **progress\_percentage**: `number`
 
-Defined in: [types.ts:119](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L119)
+Defined in: [types.ts:119](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L119)
 
 Progress of the analysis (0 to 100).
 
@@ -30,7 +30,7 @@ Progress of the analysis (0 to 100).
 
 > **state**: [`RequestState`](../type-aliases/RequestState.md)
 
-Defined in: [types.ts:121](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L121)
+Defined in: [types.ts:121](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L121)
 
 Current state of the request.
 
@@ -40,7 +40,7 @@ Current state of the request.
 
 > **text**: `string`
 
-Defined in: [types.ts:123](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L123)
+Defined in: [types.ts:123](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L123)
 
 Source text for analysis.
 
@@ -50,6 +50,6 @@ Source text for analysis.
 
 > **uuid**: `string`
 
-Defined in: [types.ts:125](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L125)
+Defined in: [types.ts:125](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L125)
 
 Unique ID for the request.

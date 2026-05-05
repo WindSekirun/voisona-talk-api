@@ -6,7 +6,7 @@
 
 # Interface: ErrorResponse
 
-Defined in: [types.ts:251](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L251)
+Defined in: [types.ts:251](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L251)
 
 Error response structure following Problem Details for HTTP APIs.
 
@@ -16,7 +16,7 @@ Error response structure following Problem Details for HTTP APIs.
 
 > **detail**: `string`
 
-Defined in: [types.ts:257](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L257)
+Defined in: [types.ts:257](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L257)
 
 Detailed explanation of the error.
 
@@ -26,7 +26,7 @@ Detailed explanation of the error.
 
 > `optional` **meta?**: [`MetaInformation`](MetaInformation.md)
 
-Defined in: [types.ts:259](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L259)
+Defined in: [types.ts:259](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L259)
 
 Metadata information.
 
@@ -36,7 +36,7 @@ Metadata information.
 
 > **status**: `number`
 
-Defined in: [types.ts:253](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L253)
+Defined in: [types.ts:253](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L253)
 
 HTTP status code.
 
@@ -46,6 +46,6 @@ HTTP status code.
 
 > **title**: `string`
 
-Defined in: [types.ts:255](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L255)
+Defined in: [types.ts:255](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L255)
 
 Short summary of the error.

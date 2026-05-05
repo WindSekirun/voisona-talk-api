@@ -1,11 +1,12 @@
 import { defineConfig } from 'vitepress';
 
 export default defineConfig({
+  lang: 'en-US',
   title: 'VoiSona Talk API',
   description: 'A TypeScript library for the VoiSona Talk API',
   base: '/voisona-talk-api/',
   ignoreDeadLinks: true,
-  lastUpdated: true,
+  lastUpdated: false,
   cleanUrls: true,
   themeConfig: {
     nav: [

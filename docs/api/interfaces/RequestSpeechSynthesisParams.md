@@ -6,7 +6,7 @@
 
 # Interface: RequestSpeechSynthesisParams
 
-Defined in: [types.ts:182](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L182)
+Defined in: [types.ts:182](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L182)
 
 Parameters for requesting speech synthesis.
 
@@ -16,7 +16,7 @@ Parameters for requesting speech synthesis.
 
 > `optional` **analyzed\_text?**: `string`
 
-Defined in: [types.ts:194](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L194)
+Defined in: [types.ts:194](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L194)
 
 TSML analyzed text. Max 50000 characters.
 If provided, 'text' is ignored.
@@ -27,7 +27,7 @@ If provided, 'text' is ignored.
 
 > `optional` **can\_overwrite\_file?**: `boolean`
 
-Defined in: [types.ts:200](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L200)
+Defined in: [types.ts:200](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L200)
 
 Whether to overwrite the output file. Defaults to false.
 
@@ -37,7 +37,7 @@ Whether to overwrite the output file. Defaults to false.
 
 > `optional` **destination?**: [`Destination`](../type-aliases/Destination.md)
 
-Defined in: [types.ts:196](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L196)
+Defined in: [types.ts:196](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L196)
 
 Destination of the output sound. Defaults to 'audio_device'.
 
@@ -47,7 +47,7 @@ Destination of the output sound. Defaults to 'audio_device'.
 
 > `optional` **force\_enqueue?**: `boolean`
 
-Defined in: [types.ts:202](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L202)
+Defined in: [types.ts:202](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L202)
 
 Whether to force enqueue by removing old requests. Defaults to false.
 
@@ -57,7 +57,7 @@ Whether to force enqueue by removing old requests. Defaults to false.
 
 > `optional` **global\_parameters?**: [`GlobalParameters`](GlobalParameters.md)
 
-Defined in: [types.ts:204](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L204)
+Defined in: [types.ts:204](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L204)
 
 Global synthesis parameters.
 
@@ -67,7 +67,7 @@ Global synthesis parameters.
 
 > **language**: `string`
 
-Defined in: [types.ts:184](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L184)
+Defined in: [types.ts:184](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L184)
 
 Language code (e.g., "ja_JP"). Required.
 
@@ -77,7 +77,7 @@ Language code (e.g., "ja_JP"). Required.
 
 > `optional` **output\_file\_path?**: `string`
 
-Defined in: [types.ts:198](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L198)
+Defined in: [types.ts:198](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L198)
 
 Absolute path for output file. Required if destination is 'file'.
 
@@ -87,7 +87,7 @@ Absolute path for output file. Required if destination is 'file'.
 
 > `optional` **phoneme\_durations?**: `number`[]
 
-Defined in: [types.ts:209](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L209)
+Defined in: [types.ts:209](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L209)
 
 Requested phoneme durations in seconds.
 -1 means automatic.
@@ -98,7 +98,7 @@ Requested phoneme durations in seconds.
 
 > `optional` **text?**: `string`
 
-Defined in: [types.ts:189](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L189)
+Defined in: [types.ts:189](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L189)
 
 Source text. Max 500 characters.
 Required if analyzed_text is not provided.
@@ -109,7 +109,7 @@ Required if analyzed_text is not provided.
 
 > `optional` **voice\_name?**: `string`
 
-Defined in: [types.ts:211](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L211)
+Defined in: [types.ts:211](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L211)
 
 Specific voice name to use.
 
@@ -119,6 +119,6 @@ Specific voice name to use.
 
 > `optional` **voice\_version?**: `string`
 
-Defined in: [types.ts:213](https://github.com/WindSekirun/voisona-talk-api/blob/a78c2499101e00b00d8beedc8d8fc84c5548fedd/src/types.ts#L213)
+Defined in: [types.ts:213](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L213)
 
 Specific voice version to use.
