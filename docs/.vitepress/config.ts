@@ -19,6 +19,7 @@ export default defineConfig({
         text: 'Guide',
         items: [
           { text: 'Getting Started', link: '/guide/getting-started' },
+          { text: 'CLI Usage', link: '/guide/cli-usage' },
           { text: 'Connection Guide', link: '/CONNECT_WITH_VOISONA' },
           { text: 'Voice Selection Rules', link: '/guide/voice-selection' },
           { text: 'Custom Pronunciation', link: '/guide/custom-pronunciation' },

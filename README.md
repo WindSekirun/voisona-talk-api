@@ -23,13 +23,26 @@ This library allows you to interact with the VoiSona Talk editor's local API, en
 - **Default WAV Output**: Synthesis defaults to `.wav` file output in the `output/` directory.
 - **Emotion Control**: `getStyleWeights` helper for intuitive style/emotion management by name.
 - **Bulk Processing**: `bulkSynthesize` for handling multiple requests with concurrency control.
-- **Environment Support**: Easy configuration via `.env` files.
 
 ## Installation
 
 ```bash
 pnpm add voisona-talk-api
 ```
+
+## CLI Usage
+
+This library includes a built-in CLI tool for interacting with the VoiSona Talk API directly from your terminal.
+
+```bash
+# List available voices
+npx voisona voices list
+
+# Synthesize text to a WAV file
+npx voisona synthesis request "こんにちは"
+```
+
+For detailed command references and options, please refer to the [CLI Usage Guide](https://windsekirun.github.io/voisona-talk-api/guide/cli-usage).
 
 ## Quick Start
 

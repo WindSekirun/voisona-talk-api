@@ -22,13 +22,26 @@ VoiSona Talk API (v0.9.0) のための TypeScript ベースのライブラリで
 - **デフォルト WAV 出力**: 合成結果はデフォルトで `output/` ディレクトリに `.wav` ファイルとして保存されます。
 - **感情制御**: 名前を使用して直感的にスタイル/感情の重みを管理できる `getStyleWeights` ヘルパー。
 - **一括処理**: 同時実行制御が可能な複数リクエスト処理のための `bulkSynthesize`。
-- **環境設定**: `.env` ファイルによる簡単な設定。
 
 ## インストール
 
 ```bash
 pnpm add voisona-talk-api
 ```
+
+## CLI の使い方
+
+このライブラリには、ターミナルから直接 VoiSona Talk API を操作できる CLI ツール이組み込まれています。
+
+```bash
+# 利用可能なボイス一覧を表示
+npx voisona list voices
+
+# テキストを音声合成して WAV ファイルに保存
+npx voisona synthesize "こんにちは"
+```
+
+詳細なコマンドやオプションについては、[CLI 使用法ガイド (英語)](https://windsekirun.github.io/voisona-talk-api/guide/cli-usage) を参照してください。
 
 ## クイックスタート
 
