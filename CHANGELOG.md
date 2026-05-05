@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.5.0](https://github.com/WindSekirun/voisona-talk-api/compare/v1.4.0...v1.5.0) (2026-05-05)
+
+### 🚀 Features
+
+* add CLI tool for VoiSona Talk API ([8614e0e](https://github.com/WindSekirun/voisona-talk-api/commit/8614e0e278bdfaad9140c9aab795204d98eed8af))
+
+### 🧰 Maintenance
+
+* update devDependencies ([a34508c](https://github.com/WindSekirun/voisona-talk-api/commit/a34508c3c2801236257ee25be201dc62dc2e8e1b))
+
 ## [1.4.0](https://github.com/WindSekirun/voisona-talk-api/compare/v1.3.0...v1.4.0) (2026-04-30)
 
 ### 🚀 Features
