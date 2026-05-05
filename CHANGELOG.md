@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.5.1](https://github.com/WindSekirun/voisona-talk-api/compare/v1.5.0...v1.5.1) (2026-05-05)
+
+### ♻️ Refactoring
+
+* split VoisonaClient into category-specific modules ([a94ed4e](https://github.com/WindSekirun/voisona-talk-api/commit/a94ed4ee1cb647a3ec62511cd3a4adc6dc3ec986))
+
 ## [1.5.0](https://github.com/WindSekirun/voisona-talk-api/compare/v1.4.0...v1.5.0) (2026-05-05)
 
 ### 🚀 Features
