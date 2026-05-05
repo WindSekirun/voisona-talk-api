@@ -6,9 +6,14 @@
 
 # Class: VoisonaClient
 
-Defined in: [client.ts:36](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L36)
+Defined in: [client/index.ts:12](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/index.ts#L12)
 
 Client for interacting with the VoiSona Talk API.
+Combines functionality from Analysis, Synthesis, and Information modules.
+
+## Extends
+
+- `MixedClient`
 
 ## Constructors
 
@@ -16,7 +21,7 @@ Client for interacting with the VoiSona Talk API.
 
 > **new VoisonaClient**(`config`): `VoisonaClient`
 
-Defined in: [client.ts:45](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L45)
+Defined in: [client/base.ts:27](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/base.ts#L27)
 
 Initializes a new instance of the VoisonaClient.
 
@@ -36,13 +41,41 @@ Configuration options for the client.
 
 Error if email or password are missing.
 
+#### Inherited from
+
+`MixedClient.constructor`
+
+## Properties
+
+### authHeader
+
+> `protected` `readonly` **authHeader**: `string`
+
+Defined in: [client/base.ts:20](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/base.ts#L20)
+
+#### Inherited from
+
+`MixedClient.authHeader`
+
+***
+
+### baseUrl
+
+> `protected` `readonly` **baseUrl**: `string`
+
+Defined in: [client/base.ts:19](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/base.ts#L19)
+
+#### Inherited from
+
+`MixedClient.baseUrl`
+
 ## Methods
 
 ### analyzeAndWait()
 
 > **analyzeAndWait**(`params`, `options?`): `Promise`\<[`TextAnalysisRequest`](../interfaces/TextAnalysisRequest.md)\>
 
-Defined in: [client.ts:468](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L468)
+Defined in: [client/analysis.ts:86](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/analysis.ts#L86)
 
 Convenience method to request text analysis and wait for it to succeed.
 
@@ -84,13 +117,17 @@ The final successful text analysis request result.
 
 Error if analysis fails or times out.
 
+#### Inherited from
+
+`MixedClient.analyzeAndWait`
+
 ***
 
 ### bulkSynthesize()
 
 > **bulkSynthesize**(`items`, `options?`): `Promise`\<[`SpeechSynthesisRequest`](../interfaces/SpeechSynthesisRequest.md)[]\>
 
-Defined in: [client.ts:514](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L514)
+Defined in: [client/synthesis.ts:256](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/synthesis.ts#L256)
 
 Convenience method to process multiple synthesis requests with concurrency control.
 
@@ -132,13 +169,17 @@ Concurrency and polling options.
 
 A list of all successful synthesis results.
 
+#### Inherited from
+
+`MixedClient.bulkSynthesize`
+
 ***
 
 ### clearAllCompletedRequests()
 
 > **clearAllCompletedRequests**(): `Promise`\<`void`\>
 
-Defined in: [client.ts:657](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L657)
+Defined in: [client/index.ts:58](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/index.ts#L58)
 
 Clears all completed (succeeded or failed) requests from both synthesis and analysis queues.
 
@@ -152,7 +193,7 @@ Clears all completed (succeeded or failed) requests from both synthesis and anal
 
 > **clearSpeechSynthesisRequests**(`states?`): `Promise`\<`void`\>
 
-Defined in: [client.ts:636](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L636)
+Defined in: [client/synthesis.ts:131](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/synthesis.ts#L131)
 
 Clears speech synthesis requests that are in specific states.
 
@@ -168,13 +209,17 @@ States to clear. Defaults to ['succeeded', 'failed'].
 
 `Promise`\<`void`\>
 
+#### Inherited from
+
+`MixedClient.clearSpeechSynthesisRequests`
+
 ***
 
 ### clearTextAnalysisRequests()
 
 > **clearTextAnalysisRequests**(`states?`): `Promise`\<`void`\>
 
-Defined in: [client.ts:648](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L648)
+Defined in: [client/analysis.ts:73](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/analysis.ts#L73)
 
 Clears text analysis requests that are in specific states.
 
@@ -190,13 +235,17 @@ States to clear. Defaults to ['succeeded', 'failed'].
 
 `Promise`\<`void`\>
 
+#### Inherited from
+
+`MixedClient.clearTextAnalysisRequests`
+
 ***
 
 ### deleteSpeechSynthesisRequest()
 
 > **deleteSpeechSynthesisRequest**(`uuid`): `Promise`\<`void`\>
 
-Defined in: [client.ts:233](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L233)
+Defined in: [client/synthesis.ts:109](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/synthesis.ts#L109)
 
 Deletes a specific speech synthesis request.
 
@@ -212,13 +261,17 @@ The unique ID of the request to delete.
 
 `Promise`\<`void`\>
 
+#### Inherited from
+
+`MixedClient.deleteSpeechSynthesisRequest`
+
 ***
 
 ### deleteTextAnalysisRequest()
 
 > **deleteTextAnalysisRequest**(`uuid`): `Promise`\<`void`\>
 
-Defined in: [client.ts:296](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L296)
+Defined in: [client/analysis.ts:62](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/analysis.ts#L62)
 
 Deletes a specific text analysis request.
 
@@ -234,13 +287,17 @@ The unique ID of the request to delete.
 
 `Promise`\<`void`\>
 
+#### Inherited from
+
+`MixedClient.deleteTextAnalysisRequest`
+
 ***
 
 ### getDefaultAudioDevice()
 
 > **getDefaultAudioDevice**(): `Promise`\<[`AudioDeviceInfo`](../interfaces/AudioDeviceInfo.md)\>
 
-Defined in: [client.ts:336](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L336)
+Defined in: [client/info.ts:46](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/info.ts#L46)
 
 Gets information about the default audio output device.
 
@@ -250,21 +307,25 @@ Gets information about the default audio output device.
 
 Information about the default audio device.
 
+#### Inherited from
+
+`MixedClient.getDefaultAudioDevice`
+
 ***
 
 ### getQueueStatus()
 
-> **getQueueStatus**(): `Promise`\<\{ `analysis`: `Record`\<[`RequestState`](../type-aliases/RequestState.md), `number`\>; `synthesis`: `Record`\<[`RequestState`](../type-aliases/RequestState.md), `number`\>; \}\>
+> **getQueueStatus**(): `Promise`\<\{ `analysis`: \{ `failed`: `number`; `queued`: `number`; `running`: `number`; `succeeded`: `number`; \}; `synthesis`: \{ `failed`: `number`; `queued`: `number`; `running`: `number`; `succeeded`: `number`; \}; \}\>
 
-Defined in: [client.ts:607](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L607)
+Defined in: [client/index.ts:30](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/index.ts#L30)
 
-Retrieves the current status summary of the request queue.
+Gets the current queue status for both synthesis and analysis requests.
 
 #### Returns
 
-`Promise`\<\{ `analysis`: `Record`\<[`RequestState`](../type-aliases/RequestState.md), `number`\>; `synthesis`: `Record`\<[`RequestState`](../type-aliases/RequestState.md), `number`\>; \}\>
+`Promise`\<\{ `analysis`: \{ `failed`: `number`; `queued`: `number`; `running`: `number`; `succeeded`: `number`; \}; `synthesis`: \{ `failed`: `number`; `queued`: `number`; `running`: `number`; `succeeded`: `number`; \}; \}\>
 
-Counts of requests in each state.
+An object containing queue statistics.
 
 ***
 
@@ -272,7 +333,7 @@ Counts of requests in each state.
 
 > **getSpeechSynthesisRequest**(`uuid`): `Promise`\<[`SpeechSynthesisRequest`](../interfaces/SpeechSynthesisRequest.md)\>
 
-Defined in: [client.ts:225](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L225)
+Defined in: [client/synthesis.ts:100](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/synthesis.ts#L100)
 
 Retrieves detailed information about a specific speech synthesis request.
 
@@ -290,13 +351,17 @@ The unique ID of the request.
 
 Detailed information about the synthesis request.
 
+#### Inherited from
+
+`MixedClient.getSpeechSynthesisRequest`
+
 ***
 
 ### getStyleWeights()
 
 > **getStyleWeights**(`voiceInfo`, `styleWeightsMap`): `number`[]
 
-Defined in: [client.ts:590](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L590)
+Defined in: [client/info.ts:57](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/info.ts#L57)
 
 Helper to create a style_weights array from a mapping of style names to weights.
 
@@ -320,13 +385,17 @@ A record of style names and their corresponding weights (0.0 to 1.0).
 
 A number array representing the style weights in the correct order.
 
+#### Inherited from
+
+`MixedClient.getStyleWeights`
+
 ***
 
 ### getSynthesizedWav()
 
 > **getSynthesizedWav**(`uuid`): `Promise`\<`ArrayBuffer`\>
 
-Defined in: [client.ts:245](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L245)
+Defined in: [client/synthesis.ts:122](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/synthesis.ts#L122)
 
 Gets the WAV data of synthesized speech.
 Available only when destination is 'memory' and state is 'succeeded'.
@@ -345,13 +414,17 @@ The unique ID of the request.
 
 The WAV data as an ArrayBuffer.
 
+#### Inherited from
+
+`MixedClient.getSynthesizedWav`
+
 ***
 
 ### getTextAnalysisRequest()
 
 > **getTextAnalysisRequest**(`uuid`): `Promise`\<[`TextAnalysisRequest`](../interfaces/TextAnalysisRequest.md)\>
 
-Defined in: [client.ts:288](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L288)
+Defined in: [client/analysis.ts:53](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/analysis.ts#L53)
 
 Retrieves detailed information and results of a specific text analysis request.
 
@@ -369,13 +442,17 @@ The unique ID of the request.
 
 Detailed information and results of the analysis.
 
+#### Inherited from
+
+`MixedClient.getTextAnalysisRequest`
+
 ***
 
 ### getVoiceInformation()
 
 > **getVoiceInformation**(`name`, `version`): `Promise`\<[`VoiceInformation`](../interfaces/VoiceInformation.md)\>
 
-Defined in: [client.ts:319](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L319)
+Defined in: [client/info.ts:27](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/info.ts#L27)
 
 Retrieves detailed information about a specific voice library.
 
@@ -399,13 +476,17 @@ The version of the voice library.
 
 Detailed voice information.
 
+#### Inherited from
+
+`MixedClient.getVoiceInformation`
+
 ***
 
 ### isServiceRunning()
 
 > **isServiceRunning**(): `Promise`\<`boolean`\>
 
-Defined in: [client.ts:65](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L65)
+Defined in: [client/index.ts:17](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/index.ts#L17)
 
 Checks if the VoiSona Talk service is currently running and reachable.
 
@@ -421,7 +502,7 @@ True if the service is running, false otherwise.
 
 > **listLanguages**(): `Promise`\<`string`[]\>
 
-Defined in: [client.ts:327](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L327)
+Defined in: [client/info.ts:36](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/info.ts#L36)
 
 Lists all supported languages.
 
@@ -431,13 +512,17 @@ Lists all supported languages.
 
 A list of language codes.
 
+#### Inherited from
+
+`MixedClient.listLanguages`
+
 ***
 
 ### listSpeechSynthesisRequests()
 
 > **listSpeechSynthesisRequests**(): `Promise`\<[`SpeechSynthesisBaseInformation`](../interfaces/SpeechSynthesisBaseInformation.md)[]\>
 
-Defined in: [client.ts:147](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L147)
+Defined in: [client/synthesis.ts:21](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/synthesis.ts#L21)
 
 Lists all current speech synthesis requests.
 
@@ -447,13 +532,17 @@ Lists all current speech synthesis requests.
 
 A list of speech synthesis base information.
 
+#### Inherited from
+
+`MixedClient.listSpeechSynthesisRequests`
+
 ***
 
 ### listTextAnalysisRequests()
 
 > **listTextAnalysisRequests**(): `Promise`\<[`TextAnalysisBaseInformation`](../interfaces/TextAnalysisBaseInformation.md)[]\>
 
-Defined in: [client.ts:255](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L255)
+Defined in: [client/analysis.ts:18](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/analysis.ts#L18)
 
 Lists all current text analysis requests.
 
@@ -463,13 +552,17 @@ Lists all current text analysis requests.
 
 A list of text analysis base information.
 
+#### Inherited from
+
+`MixedClient.listTextAnalysisRequests`
+
 ***
 
 ### listVoices()
 
 > **listVoices**(): `Promise`\<[`VoiceBaseInformation`](../interfaces/VoiceBaseInformation.md)[]\>
 
-Defined in: [client.ts:308](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L308)
+Defined in: [client/info.ts:15](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/info.ts#L15)
 
 Lists all available voice libraries.
 
@@ -479,13 +572,17 @@ Lists all available voice libraries.
 
 A list of voice libraries.
 
+#### Inherited from
+
+`MixedClient.listVoices`
+
 ***
 
 ### requestSpeechSynthesis()
 
 > **requestSpeechSynthesis**(`params`): `Promise`\<[`ContentCreated`](../interfaces/ContentCreated.md)\>
 
-Defined in: [client.ts:159](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L159)
+Defined in: [client/synthesis.ts:33](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/synthesis.ts#L33)
 
 Requests a new speech synthesis. This enqueues the request.
 
@@ -507,13 +604,17 @@ The created request information including its UUID.
 
 Error if validation fails.
 
+#### Inherited from
+
+`MixedClient.requestSpeechSynthesis`
+
 ***
 
 ### requestTextAnalysis()
 
 > **requestTextAnalysis**(`params`): `Promise`\<[`ContentCreated`](../interfaces/ContentCreated.md)\>
 
-Defined in: [client.ts:266](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L266)
+Defined in: [client/analysis.ts:30](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/analysis.ts#L30)
 
 Requests a new text analysis for speech synthesis.
 
@@ -535,13 +636,17 @@ The created request information including its UUID.
 
 Error if validation fails.
 
+#### Inherited from
+
+`MixedClient.requestTextAnalysis`
+
 ***
 
 ### synthesizeAndWait()
 
 > **synthesizeAndWait**(`params`, `options?`): `Promise`\<[`SpeechSynthesisRequest`](../interfaces/SpeechSynthesisRequest.md)\>
 
-Defined in: [client.ts:349](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L349)
+Defined in: [client/synthesis.ts:144](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/synthesis.ts#L144)
 
 Convenience method to request speech synthesis and wait for it to succeed.
 
@@ -583,13 +688,17 @@ The final successful speech synthesis request result.
 
 Error if synthesis fails or times out.
 
+#### Inherited from
+
+`MixedClient.synthesizeAndWait`
+
 ***
 
 ### synthesizeToBuffer()
 
 > **synthesizeToBuffer**(`params`, `options?`): `Promise`\<`ArrayBuffer`\>
 
-Defined in: [client.ts:425](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L425)
+Defined in: [client/synthesis.ts:214](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/synthesis.ts#L214)
 
 Convenience method to request speech synthesis to memory and retrieve the WAV data.
 
@@ -627,13 +736,17 @@ Polling and cleanup options.
 
 The WAV data as an ArrayBuffer.
 
+#### Inherited from
+
+`MixedClient.synthesizeToBuffer`
+
 ***
 
 ### synthesizeWithPronunciation()
 
 > **synthesizeWithPronunciation**(`params`, `pronunciationMap`, `options?`): `Promise`\<[`SpeechSynthesisRequest`](../interfaces/SpeechSynthesisRequest.md)\>
 
-Defined in: [client.ts:546](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/client.ts#L546)
+Defined in: [client/synthesis.ts:288](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/client/synthesis.ts#L288)
 
 Convenience method to request speech synthesis with custom pronunciations for specific words.
 
@@ -676,3 +789,7 @@ Polling options.
 `Promise`\<[`SpeechSynthesisRequest`](../interfaces/SpeechSynthesisRequest.md)\>
 
 The final successful speech synthesis request result.
+
+#### Inherited from
+
+`MixedClient.synthesizeWithPronunciation`

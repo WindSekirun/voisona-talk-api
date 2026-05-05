@@ -275,3 +275,8 @@ export const API_CONSTRAINTS = {
   VOLUME: { MIN: -8, MAX: 8 },
   PHONEME_DURATION: { MIN: -1, MAX: 10 },
 } as const;
+
+/**
+ * Generic constructor type for mixins.
+ */
+export type Constructor<T = any> = new (...args: any[]) => T;

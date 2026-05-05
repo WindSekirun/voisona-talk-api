@@ -6,7 +6,7 @@
 
 # Interface: MetaInformation
 
-Defined in: [types.ts:21](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L21)
+Defined in: [types.ts:21](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/types.ts#L21)
 
 Metadata information containing warnings.
 
@@ -16,6 +16,6 @@ Metadata information containing warnings.
 
 > `optional` **warnings?**: `Record`\<`string`, `unknown`\>[]
 
-Defined in: [types.ts:23](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L23)
+Defined in: [types.ts:23](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/types.ts#L23)
 
 Array of warning objects.

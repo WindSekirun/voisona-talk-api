@@ -424,6 +424,7 @@ describe('VoisonaClient Core API', () => {
   it('should return true for isServiceRunning when reachable', async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
+      json: async () => ({}),
     } as Response);
 
     const client = new VoisonaClient(config);

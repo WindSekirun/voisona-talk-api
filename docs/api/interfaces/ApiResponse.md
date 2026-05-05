@@ -6,7 +6,7 @@
 
 # Interface: ApiResponse\<T\>
 
-Defined in: [types.ts:231](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L231)
+Defined in: [types.ts:231](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/types.ts#L231)
 
 Generic API response structure for lists.
 
@@ -22,7 +22,7 @@ Generic API response structure for lists.
 
 > `optional` **items?**: `T`[]
 
-Defined in: [types.ts:233](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L233)
+Defined in: [types.ts:233](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/types.ts#L233)
 
 List of items.
 
@@ -32,6 +32,6 @@ List of items.
 
 > `optional` **meta?**: [`MetaInformation`](MetaInformation.md)
 
-Defined in: [types.ts:235](https://github.com/WindSekirun/voisona-talk-api/blob/8614e0e278bdfaad9140c9aab795204d98eed8af/src/types.ts#L235)
+Defined in: [types.ts:235](https://github.com/WindSekirun/voisona-talk-api/blob/83850048b1f8b6d08a05f35d6a672bdff5c3e358/src/types.ts#L235)
 
 Metadata information.

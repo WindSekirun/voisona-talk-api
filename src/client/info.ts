@@ -1,16 +1,24 @@
-import { VoisonaClient } from './base';
-import { ApiResponse, VoiceBaseInformation, VoiceInformation, AudioDeviceInfo } from '../types';
+import {
+  ApiResponse,
+  VoiceBaseInformation,
+  VoiceInformation,
+  AudioDeviceInfo,
+  Constructor,
+} from '../types';
 
-// Extend the base class with info methods
-declare module './base' {
-  interface VoisonaClient {
-    // --- Information ---
-
+export function InfoMixin<TBase extends Constructor>(Base: TBase) {
+  return class InfoClient extends Base {
     /**
      * Lists all available voice libraries.
      * @returns A list of voice libraries.
      */
-    listVoices(): Promise<VoiceBaseInformation[]>;
+    async listVoices(): Promise<VoiceBaseInformation[]> {
+      const self = this as any as {
+        request: <T>(path: string, options?: RequestInit) => Promise<T>;
+      };
+      const data = await self.request<ApiResponse<VoiceBaseInformation>>('/voices');
+      return data.items ?? [];
+    }
 
     /**
      * Retrieves detailed information about a specific voice library.
@@ -18,19 +26,35 @@ declare module './base' {
      * @param version The version of the voice library.
      * @returns Detailed voice information.
      */
-    getVoiceInformation(name: string, version: string): Promise<VoiceInformation>;
+    async getVoiceInformation(name: string, version: string): Promise<VoiceInformation> {
+      const self = this as any as {
+        request: <T>(path: string, options?: RequestInit) => Promise<T>;
+      };
+      return self.request<VoiceInformation>(`/voices/${name}/${version}`);
+    }
 
     /**
      * Lists all supported languages.
      * @returns A list of language codes.
      */
-    listLanguages(): Promise<string[]>;
+    async listLanguages(): Promise<string[]> {
+      const self = this as any as {
+        request: <T>(path: string, options?: RequestInit) => Promise<T>;
+      };
+      const data = await self.request<{ items: { language: string }[] }>('/languages');
+      return (data.items ?? []).map((i) => i.language);
+    }
 
     /**
      * Gets information about the default audio output device.
      * @returns Information about the default audio device.
      */
-    getDefaultAudioDevice(): Promise<AudioDeviceInfo>;
+    async getDefaultAudioDevice(): Promise<AudioDeviceInfo> {
+      const self = this as any as {
+        request: <T>(path: string, options?: RequestInit) => Promise<T>;
+      };
+      return self.request<AudioDeviceInfo>('/audio-devices/default');
+    }
 
     /**
      * Helper to create a style_weights array from a mapping of style names to weights.
@@ -38,43 +62,18 @@ declare module './base' {
      * @param styleWeightsMap A record of style names and their corresponding weights (0.0 to 1.0).
      * @returns A number array representing the style weights in the correct order.
      */
-    getStyleWeights(voiceInfo: VoiceInformation, styleWeightsMap: Record<string, number>): number[];
-  }
-}
-
-// Implementation
-VoisonaClient.prototype.listVoices = async function (): Promise<VoiceBaseInformation[]> {
-  const data = await this.request<ApiResponse<VoiceBaseInformation>>('/voices');
-  return data.items ?? [];
-};
-
-VoisonaClient.prototype.getVoiceInformation = async function (
-  name: string,
-  version: string,
-): Promise<VoiceInformation> {
-  return this.request<VoiceInformation>(`/voices/${name}/${version}`);
-};
-
-VoisonaClient.prototype.listLanguages = async function (): Promise<string[]> {
-  const data = await this.request<{ items: { language: string }[] }>('/languages');
-  return (data.items ?? []).map((i) => i.language);
-};
-
-VoisonaClient.prototype.getDefaultAudioDevice = async function (): Promise<AudioDeviceInfo> {
-  return this.request<AudioDeviceInfo>('/audio-devices/default');
-};
-
-// Helper method for info
-VoisonaClient.prototype.getStyleWeights = function (
-  voiceInfo: VoiceInformation,
-  styleWeightsMap: Record<string, number>,
-): number[] {
-  const weights = [...voiceInfo.default_style_weights];
-  for (const [name, weight] of Object.entries(styleWeightsMap)) {
-    const index = voiceInfo.style_names.indexOf(name);
-    if (index !== -1) {
-      weights[index] = weight;
+    getStyleWeights(
+      voiceInfo: VoiceInformation,
+      styleWeightsMap: Record<string, number>,
+    ): number[] {
+      const weights = [...voiceInfo.default_style_weights];
+      for (const [name, weight] of Object.entries(styleWeightsMap)) {
+        const index = voiceInfo.style_names.indexOf(name);
+        if (index !== -1) {
+          weights[index] = weight;
+        }
+      }
+      return weights;
     }
-  }
-  return weights;
-};
+  };
+}

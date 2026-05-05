@@ -28,6 +28,7 @@
 
 ## Type Aliases
 
+- [Constructor](type-aliases/Constructor.md)
 - [Destination](type-aliases/Destination.md)
 - [RequestState](type-aliases/RequestState.md)
 
