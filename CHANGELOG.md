@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.5.2](https://github.com/WindSekirun/voisona-talk-api/compare/v1.5.1...v1.5.2) (2026-05-05)
+
+### ♻️ Refactoring
+
+* transition VoisonaClient to mixin-based architecture ([1f23cc7](https://github.com/WindSekirun/voisona-talk-api/commit/1f23cc7753ce55cfa79ee86da2084830f71cb1df))
+
 ## [1.5.1](https://github.com/WindSekirun/voisona-talk-api/compare/v1.5.0...v1.5.1) (2026-05-05)
 
 ### ♻️ Refactoring
