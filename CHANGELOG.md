@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.5.3](https://github.com/WindSekirun/voisona-talk-api/compare/v1.5.2...v1.5.3) (2026-05-05)
+
+### 🧰 Maintenance
+
+* fix package.json issues reported by npm publish ([c49c028](https://github.com/WindSekirun/voisona-talk-api/commit/c49c028343c53c29c2a8ec284b550f44829429cf))
+
 ## [1.5.2](https://github.com/WindSekirun/voisona-talk-api/compare/v1.5.1...v1.5.2) (2026-05-05)
 
 ### ♻️ Refactoring
