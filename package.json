@@ -48,7 +48,7 @@
     "lint": "eslint . && tsc --noEmit",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
-    "release": "release-it --ci",
+    "release": "release-it --only-version",
     "docs:api": "typedoc --entryPoints src/index.ts --out docs/api --plugin typedoc-plugin-markdown --readme none && node scripts/docs-post-process.js",
     "docs:dev": "pnpm run docs:api && vitepress dev docs",
     "docs:build": "pnpm run docs:api && vitepress build docs",

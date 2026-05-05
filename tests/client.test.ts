@@ -356,6 +356,48 @@ describe('VoisonaClient Core API', () => {
     expect(deleteCalls[1]![0]).toContain('/text-analyses/a1');
   });
 
+  it('should clear only succeeded speech synthesis requests', async () => {
+    vi.mocked(fetch)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          items: [
+            { uuid: 's1', state: 'succeeded' },
+            { uuid: 's2', state: 'failed' },
+          ],
+        }),
+      } as Response)
+      .mockResolvedValueOnce({ ok: true, status: 204 } as Response);
+
+    const client = new VoisonaClient(config);
+    await client.clearSpeechSynthesisRequests(['succeeded']);
+
+    const deleteCalls = vi.mocked(fetch).mock.calls.filter((c) => c[1]?.method === 'DELETE');
+    expect(deleteCalls).toHaveLength(1);
+    expect(deleteCalls[0]![0]).toContain('/speech-syntheses/s1');
+  });
+
+  it('should clear only failed text analysis requests', async () => {
+    vi.mocked(fetch)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          items: [
+            { uuid: 'a1', state: 'failed' },
+            { uuid: 'a2', state: 'running' },
+          ],
+        }),
+      } as Response)
+      .mockResolvedValueOnce({ ok: true, status: 204 } as Response);
+
+    const client = new VoisonaClient(config);
+    await client.clearTextAnalysisRequests(['failed']);
+
+    const deleteCalls = vi.mocked(fetch).mock.calls.filter((c) => c[1]?.method === 'DELETE');
+    expect(deleteCalls).toHaveLength(1);
+    expect(deleteCalls[0]![0]).toContain('/text-analyses/a1');
+  });
+
   it('should handle API errors with data', async () => {
     const mockError = { status: 400, title: 'Error', detail: 'Reason' };
     vi.mocked(fetch).mockResolvedValue({
